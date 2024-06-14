@@ -6,11 +6,25 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 15:18:57 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/12 18:05:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:26:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
+
+size_t	get_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == '\n')
+		i++;
+	return (i);
+}
 
 char	*get_strjoin(char *line, const char *box)
 {
@@ -18,7 +32,8 @@ char	*get_strjoin(char *line, const char *box)
 	int		i;
 
 	i = 0;
-	new = (char *)malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(box) + 1));
+	new = (char *)malloc(sizeof(char) * (get_strlen(line) + \
+		get_strlen(box) + 1));
 	if (!new)
 		return (NULL);
 	while (line && line[i])
