@@ -8,8 +8,8 @@ INC_DIR = inc
 OBJ_DIR = .obj
 LFT_DIR = libft
 
-SRC_FILES = main.c
-INC_FILES =
+SRC_FILES = main.c map.c
+INC_FILES = cub3D.h
 
 LIB = -L minilibx-linux -lmlx -lXext -lX11
 
@@ -46,6 +46,6 @@ fclean: clean
 re: fclean all
 
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) maps/minimalist.cub
 
 .PHONY: all clean fclean re val
