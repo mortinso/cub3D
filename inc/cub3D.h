@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 18:17:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:29:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_textures {
 	t_img			south;
 	t_img			east;
 	t_img			west;
-	unsigned int	c_ceil;
-	unsigned int	c_floor;
+	int	c_ceil;
+	int	c_floor;
 }	t_textures;
 
 typedef struct s_cube {
@@ -46,6 +46,9 @@ typedef struct s_cube {
 
 //------------------------------------SRCS--------------------------------------
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
+// events.c
+int				destruct(t_cube *cube);
+
 // utils.c
 void			free_array(char **array);
 int				is_all_digit(const char *str);
