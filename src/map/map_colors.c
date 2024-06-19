@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 18:08:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:43:03 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,15 @@ unsigned int	get_color(t_cube *cube, int fd, char *line)
 	}
 	free_array(rgb);
 	return (color);
+}
+
+void	save_color(t_cube *cube, int fd, char *line, int *color)
+{
+	if (*color > 0)
+	{
+		ft_printf("Error\nMultiple definition of %c\n", line[0]);
+		free(line);
+		map_error(cube, fd);
+	}
+	*color = get_color(cube, fd, line);
 }

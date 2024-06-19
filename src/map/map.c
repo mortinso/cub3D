@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 18:30:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:46:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,12 @@ void	get_map(t_cube *cube, char *fd_map)
 	}
 	while (line)
 	{
+		// Check if the program is looking at the map before the colors/textures have been set
 		// Add way to check if texture has already been set, if so error
 		if (ft_strncmp(line, "F ", 2) == 0)
-		{
-			if (cube->textures.c_floor > 0)
-			{
-				ft_printf("Error\nMultiple definition of %c\n", line[0]);
-				free(line);
-				map_error(cube, fd);
-			}
-			cube->textures.c_floor = get_color(cube, fd, line);
-		}
+			save_color(cube, fd, line, &cube->textures.c_floor);
 		else if (ft_strncmp(line, "C ", 2) == 0)
-		{
-			if (cube->textures.c_ceil > 0)
-			{
-				ft_printf("Error\nMultiple definition of %c\n", line[0]);
-				free(line);
-				map_error(cube, fd);
-			}
-			cube->textures.c_ceil = get_color(cube, fd, line);
-		}
+			save_color(cube, fd, line, &cube->textures.c_ceil);
 		// Add support for the textures
 		free(line);
 		line = get_next_line(fd);
