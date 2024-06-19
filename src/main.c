@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 18:32:27 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:11:08 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 	}
 	mlx_put_image_to_window(cube.mlx, cube.window, cube.screen.img, 0, 0);
 
+	mlx_hook(cube.window, 2, 1L << 0, keypress, &cube);
 	mlx_hook(cube.window, 17, 0L, destruct, &cube);
 	mlx_loop(cube.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 19:02:51 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:11:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include "../libft/inc/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
+
+//------------------------------------KEYS--------------------------------------
+# define KEY_ESC 65307
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_img {
@@ -48,6 +51,7 @@ typedef struct s_cube {
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // events.c
 int				destruct(t_cube *cube);
+int				keypress(int key, t_cube *cube);
 
 // utils.c
 void			free_array(char **array);

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 19:04:25 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:07:27 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	get_map(t_cube *cube, char *fd_map)
 	if (!line)
 	{
 		ft_printf("gnl failed\n");
-		close(fd);
-		exit (1);
+		map_error(cube, -1);
 	}
 	while (line)
 	{

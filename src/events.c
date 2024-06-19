@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 18:15:42 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:11:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,12 @@ int	destruct(t_cube *cube)
 	mlx_destroy_display(cube->mlx);
 	free(cube->mlx);
 	exit (0);
+	return (0);
+}
+
+int	keypress(int key, t_cube *cube)
+{
+	if (key == KEY_ESC)
+		destruct(cube);
 	return (0);
 }
