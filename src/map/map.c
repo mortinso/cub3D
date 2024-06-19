@@ -6,11 +6,21 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 17:39:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:19:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
+
+// Frees and destroys everything when an error is found when parsing the map
+void	map_error(t_cube *cube, int fd)
+{
+	close(fd);
+	purge_textures(cube);
+	mlx_destroy_display(cube->mlx);
+	free(cube->mlx);
+	exit (1);
+}
 
 // Function to initiate the textures/colors
 void	get_map(t_cube *cube, char *fd_map)
@@ -29,6 +39,12 @@ void	get_map(t_cube *cube, char *fd_map)
 		ft_printf("Error\n Map is inacessible\n");
 		exit (1);
 	}
+	cube->textures.c_ceil = -1;
+	cube->textures.c_floor = -1;
+	cube->textures.east.addr = NULL;
+	cube->textures.west.addr = NULL;
+	cube->textures.south.addr = NULL;
+	cube->textures.north.addr = NULL;
 	line = get_next_line(fd);
 	if (!line)
 	{
@@ -38,11 +54,27 @@ void	get_map(t_cube *cube, char *fd_map)
 	}
 	while (line)
 	{
-		// Add way to check if texture/color has already been set, if so error
+		// Add way to check if texture has already been set, if so error
 		if (ft_strncmp(line, "F ", 2) == 0)
-			cube->textures.c_floor = get_color(fd, line);
+		{
+			if (cube->textures.c_floor)
+			{
+				ft_printf("Error\nMultiple definition of %c\n", line[0]);
+				free(line);
+				map_error(cube, fd);
+			}
+			cube->textures.c_floor = get_color(cube, fd, line);
+		}
 		else if (ft_strncmp(line, "C ", 2) == 0)
-			cube->textures.c_ceil = get_color(fd, line);
+		{
+			if (cube->textures.c_ceil)
+			{
+				ft_printf("Error\nMultiple definition of %c\n", line[0]);
+				free(line);
+				map_error(cube, fd);
+			}
+			cube->textures.c_ceil = get_color(cube, fd, line);
+		}
 		// Add support for the textures
 		free(line);
 		line = get_next_line(fd);

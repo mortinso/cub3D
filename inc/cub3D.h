@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 17:38:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:17:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,14 @@ void			free_array(char **array);
 int				is_all_digit(const char *str);
 
 // +++++++++++++++ map/[.....] ++++++++++++++++++++++++++++++++++++++++++++++++
+// map_colors.c
+unsigned int	get_color(t_cube *cube, int fd, char *line);
+
+// map_textures
+void			purge_textures(t_cube *cube);
+
 // map.c
 void			get_map(t_cube *cube, char *fd_map);
-
-// map_colors.c
-unsigned int	get_color(int fd, char *line);
+void			map_error(t_cube *cube, int fd);
 
 #endif

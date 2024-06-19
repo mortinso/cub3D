@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 17:34:42 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:08:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,20 @@ int	clean_color(char **rgb)
 		tmp = ft_strtrim(rgb[i], " \t\n");
 		if (!tmp)
 		{
+			free_array(rgb);
 			ft_printf("Error\n Malloc failed\n");
 			return (0);
 		}
 		free(rgb[i]);
 		rgb[i] = ft_strdup(tmp);
-		free (tmp);
 		if (!rgb[i++])
 		{
+			rgb[i] = tmp;
+			free_array(rgb);
 			ft_printf("Error\n Malloc failed\n");
 			return (0);
 		}
+		free (tmp);
 	}
 	return (1);
 }
@@ -64,7 +67,7 @@ int	check_color(char **rgb)
 }
 
 // Parses line and converts the string into an unsigned int color
-unsigned int	get_color(int fd, char *line)
+unsigned int	get_color(t_cube *cube, int fd, char *line)
 {
 	int				i;
 	unsigned int	color;
@@ -73,18 +76,14 @@ unsigned int	get_color(int fd, char *line)
 	rgb = ft_split(line + 2, ',');
 	if (!rgb)
 	{
-		// Will have to be handled differently because a texture value might
-		// already be alloc'ed to the struct and it'll need to be freed
 		ft_printf("Error\n Malloc failed\n");
-		exit (1);
+		free(line);
+		map_error(cube, fd);
 	}
 	if (!check_color(rgb))
 	{
-		// Will have to be handled differently because a texture value might
-		// already be alloc'ed to the struct and it'll need to be freed
 		free(line);
-		close(fd);
-		exit (1);
+		map_error(cube, fd);
 	}
 	i = 0;
 	color = ft_atoi(rgb[i++]);

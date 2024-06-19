@@ -8,7 +8,7 @@ INC_DIR = inc
 OBJ_DIR = .obj
 LFT_DIR = libft
 
-SRC_FILES = main.c utils.c map/map.c map/map_colors.c
+SRC_FILES = main.c utils.c map/map.c map/map_colors.c map/map_textures.c
 INC_FILES = cub3D.h
 
 LIB = -L minilibx-linux -lmlx -lXext -lX11
