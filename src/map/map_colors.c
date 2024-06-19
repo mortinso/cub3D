@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 18:43:03 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:03:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,15 @@ unsigned int	get_color(t_cube *cube, int fd, char *line)
 	return (color);
 }
 
-void	save_color(t_cube *cube, int fd, char *line, int *color)
+void	save_color(t_cube *cube, int fd, char *line)
 {
+	int	*color;
+
+	color = NULL;
+	if (ft_strncmp(line, "F ", 2) == 0)
+		color = &cube->textures.c_floor;
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		color = &cube->textures.c_ceil;
 	if (*color > 0)
 	{
 		ft_printf("Error\nMultiple definition of %c\n", line[0]);

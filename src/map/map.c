@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 18:46:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:04:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 // Frees and destroys everything when an error is found when parsing the map
 void	map_error(t_cube *cube, int fd)
 {
-	close(fd);
+	if (fd)
+		close(fd);
 	purge_textures(cube);
 	mlx_destroy_display(cube->mlx);
 	free(cube->mlx);
@@ -31,13 +32,13 @@ void	get_map(t_cube *cube, char *fd_map)
 	if (!ft_strnstr(fd_map + (ft_strlen(fd_map) - 4), ".cub", 5))
 	{
 		ft_printf("Error\n Map is not type '.cub'\n");
-		exit (1);
+		map_error(cube, -1);
 	}
 	fd = open(fd_map, O_RDONLY);
 	if (read(fd, NULL, 0) < 0)
 	{
 		ft_printf("Error\n Map is inacessible\n");
-		exit (1);
+		map_error(cube, -1);
 	}
 	cube->textures.c_ceil = -1;
 	cube->textures.c_floor = -1;
@@ -55,12 +56,10 @@ void	get_map(t_cube *cube, char *fd_map)
 	while (line)
 	{
 		// Check if the program is looking at the map before the colors/textures have been set
-		// Add way to check if texture has already been set, if so error
-		if (ft_strncmp(line, "F ", 2) == 0)
-			save_color(cube, fd, line, &cube->textures.c_floor);
-		else if (ft_strncmp(line, "C ", 2) == 0)
-			save_color(cube, fd, line, &cube->textures.c_ceil);
-		// Add support for the textures
+		if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
+			save_color(cube, fd, line);
+		// Add support for the textures and check if texture has already been set, if so error
+		// If looking at map and media hasnt been set, error
 		free(line);
 		line = get_next_line(fd);
 	}
