@@ -6,18 +6,20 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 17:25:01 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:38:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+//----------------------------------INCLUDES------------------------------------
 # include <mlx.h>
 # include "../libft/inc/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
 
+//-----------------------------------STRUCT-------------------------------------
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -42,10 +44,17 @@ typedef struct s_cube {
 	t_img		screen;
 }	t_cube;
 
-void	get_map(t_cube *cube, char *fd_map);
-
+//------------------------------------SRCS--------------------------------------
+// +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // utils.c
-void	free_array(char **array);
-int		is_all_digit(const char *str);
+void			free_array(char **array);
+int				is_all_digit(const char *str);
+
+// +++++++++++++++ map/[.....] ++++++++++++++++++++++++++++++++++++++++++++++++
+// map.c
+void			get_map(t_cube *cube, char *fd_map);
+
+// map_colors.c
+unsigned int	get_color(int fd, char *line);
 
 #endif
