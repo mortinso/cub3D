@@ -1,14 +1,14 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 
 SRC_DIR = src
 INC_DIR = inc
 OBJ_DIR = .obj
 LFT_DIR = libft
 
-SRC_FILES = main.c map.c
+SRC_FILES = main.c map.c utils.c
 INC_FILES = cub3D.h
 
 LIB = -L minilibx-linux -lmlx -lXext -lX11
@@ -45,7 +45,8 @@ fclean: clean
 
 re: fclean all
 
+# --track-fds=yes
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) maps/minimalist.cub
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/minimalist.cub
 
 .PHONY: all clean fclean re val

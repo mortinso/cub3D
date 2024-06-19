@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/14 17:00:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:25:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ typedef struct s_cube {
 
 void	get_map(t_cube *cube, char *fd_map);
 
+// utils.c
+void	free_array(char **array);
+int		is_all_digit(const char *str);
 
 #endif
