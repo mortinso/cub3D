@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 19:03:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:26:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	check_color(char **rgb)
 // Parses line and converts the string into an unsigned int color
 unsigned int	get_color(t_cube *cube, int fd, char *line)
 {
-	int				i;
 	unsigned int	color;
 	char			**rgb;
+	int				i;
 
 	rgb = ft_split(line + 2, ',');
 	if (!rgb)

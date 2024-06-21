@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 19:11:08 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:38:59 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,4 @@ int	main(int argc, char **argv)
 	mlx_loop(cube.mlx);
 }
 //Handle exits properly
+//Write error messages to STDERR

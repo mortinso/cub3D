@@ -1,3 +1,6 @@
 minilibx-linux/
 .vscode/
 .obj/
+*.txt
+cub3D
+libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/19 19:11:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:00:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ void			save_color(t_cube *cube, int fd, char *line);
 
 // map_textures
 void			purge_textures(t_cube *cube);
+void			save_texture(t_cube *cube, int fd, char *line);
 
 // map.c
-void			get_map(t_cube *cube, char *fd_map);
+void			get_map(t_cube *cube, char *map_fd);
 void			map_error(t_cube *cube, int fd);
 
 #endif

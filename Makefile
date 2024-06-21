@@ -47,6 +47,6 @@ re: fclean all
 
 # --track-fds=yes
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/minimalist.cub
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/simple.cub
 
 .PHONY: all clean fclean re val
