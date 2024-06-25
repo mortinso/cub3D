@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:53:47 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/21 19:35:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:56:20 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*texture_path(const char *line)
 	else if (ft_strlen(path) < 5 || !ft_strnstr(path + (ft_strlen(path) - 4), \
 		".xpm", 5))
 	{
-		ft_printf("path = <%s>\n", path);
 		ft_printf("Error\n Texture is not type '.xpm'\n");
 		free(path);
 		path = NULL;
@@ -42,29 +41,33 @@ char	*texture_path(const char *line)
 	return (path);
 }
 
-void	check_texture(t_cube *cube, int fd, char *line) //Need to either receive image or return the path
+int	init_texture(t_cube *cube, char *line, t_img *img)
 {
-	char	*fd_path;
+	char	*path;
 	int		texture_fd;
 
-	fd_path = texture_path(line);
-	if (!fd_path)
-	{
-		free(line);
-		map_error(cube, fd);
-	}
-	texture_fd = open(fd_path, O_RDONLY);
+	path = texture_path(line);
+	if (!path)
+		return (0);
+	texture_fd = open(path, O_RDONLY);
 	if (texture_fd < 0)
 	{
-		free(fd_path);
 		ft_printf("Error\n Can't open texture file\n");
-		free(line);
-		map_error(cube, fd);
+		free(path);
+		return (0);
 	}
-	// Init image
 	close(texture_fd);
-	ft_printf("Texture %c%c is valid\n", line[0], line[1]); //<-
-	free(fd_path); //
+	img->img = mlx_xpm_file_to_image(cube->mlx, path, &img->width, \
+		&img->height);
+	free(path);
+	if (img->img == NULL)
+	{
+		ft_printf("Error\nFailed to read texture\n");
+		return (0);
+	}
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, \
+		&img->endian);
+	return (1);
 }
 
 void	save_texture(t_cube *cube, int fd, char *line)
@@ -85,5 +88,9 @@ void	save_texture(t_cube *cube, int fd, char *line)
 		free(line);
 		map_error(cube, fd);
 	}
-	check_texture(cube, fd, line);
+	if (!init_texture(cube, line, img))
+	{
+		free(line);
+		map_error(cube, fd);
+	}
 }

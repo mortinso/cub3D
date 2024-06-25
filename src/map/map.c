@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/21 18:12:06 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 17:17:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ void	get_map(t_cube *cube, char *map_fd)
 	}
 	while (line)
 	{
-		// Check if the program is looking at the map before the colors/textures have been set, if so error
+		// Error if the program looks at the map before the media has been set
 		if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
 			save_color(cube, fd, line);
-		// Add support for the textures and check if texture has already been set, if so error
 		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 \
 			|| ft_strncmp(line, "WE ", 3) == 0 || \
 			ft_strncmp(line, "EA ", 3) == 0)
@@ -66,7 +65,8 @@ void	get_map(t_cube *cube, char *map_fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	// Check if all textures/colors have been set, error if not
 	free(line);
 	close(fd);
-	// Should empty spaces before identifier be allowed?
+	// Should empty spaces be allowed before an identifier? I don't think so
 }

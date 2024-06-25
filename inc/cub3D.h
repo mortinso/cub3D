@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/21 18:00:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:45:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_img {
 	int		bpp;
 	int		length;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_textures {
