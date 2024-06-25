@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 17:46:18 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:33:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,13 @@ unsigned int	get_color(t_cube *cube, int fd, char *line)
 	rgb = ft_split(line + 2, ',');
 	if (!rgb)
 	{
-		ft_printf("Error\n Malloc failed\n");
 		free(line);
-		map_error(cube, fd);
+		map_error(cube, fd, "Malloc failed");
 	}
 	if (!check_color(rgb))
 	{
 		free(line);
-		map_error(cube, fd);
+		map_error(cube, fd, NULL);
 	}
 	i = 0;
 	color = ft_atoi(rgb[i++]);
@@ -108,9 +107,8 @@ void	set_color(t_cube *cube, int fd, char *line)
 		color = &cube->textures.c_ceil;
 	if (*color > 0)
 	{
-		ft_printf("Error\nMultiple definition of %c\n", line[0]);
 		free(line);
-		map_error(cube, fd);
+		map_error(cube, fd, "Multiple definitions of the same color element");
 	}
 	*color = get_color(cube, fd, line);
 }

@@ -6,15 +6,17 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 18:12:41 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:32:04 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
 
 // Frees and destroys everything when an error is found when parsing the map
-void	map_error(t_cube *cube, int fd)
+void	map_error(t_cube *cube, int fd, char *error_msg)
 {
+	if (error_msg != NULL)
+		ft_printf("Error\n%s\n", error_msg);
 	if (fd >= 0)
 		close(fd);
 	purge_textures(cube);
@@ -34,40 +36,23 @@ int	media_is_set(t_cube *cube)
 	return (1);
 }
 
-// Function to initiate the textures/colors
-void	get_map(t_cube *cube, char *map_fd)
+// Parses the map file and initiates the colors and textures
+void	get_media(t_cube *cube, char *map_fd)
 {
 	int		fd;
 	char	*line;
 
-	// V-- This should be moved to a different function --V
-	cube->textures.c_ceil = -1;
-	cube->textures.c_floor = -1;
-	cube->textures.east.addr = NULL;
-	cube->textures.west.addr = NULL;
-	cube->textures.south.addr = NULL;
-	cube->textures.north.addr = NULL;
-	if (ft_strlen(map_fd) < 5 || \
-		!ft_strnstr(map_fd + (ft_strlen(map_fd) - 4), ".cub", 5))
-	{
-		ft_printf("Error\n Map is not type '<name>.cub'\n");
-		map_error(cube, -1);
-	}
 	fd = open(map_fd, O_RDONLY);
 	if (fd < 0)
-	{
-		ft_printf("Error\n Map is inacessible\n");
-		map_error(cube, -1);
-	}
+		map_error(cube, -1, "Failed to open map file");
 	line = get_next_line(fd);
 	if (!line)
-	{
-		ft_printf("gnl failed\n");
-		map_error(cube, fd);
-	}
+		map_error(cube, fd, "GNL failed");
 	while (line)
 	{
 		// Error if the program looks at the map before the media has been set
+		// Maybe create a function that checks if the string is a valid texture
+		// identifier, this would save us some lines of code for the norme
 		if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
 			set_color(cube, fd, line);
 		else if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) \
@@ -79,10 +64,25 @@ void	get_map(t_cube *cube, char *map_fd)
 	}
 	free(line);
 	if (!media_is_set(cube))
-	{
-		ft_printf("Error\nColor/Texture definition missing in the map file\n");
-		map_error(cube, fd);
-	}
+		map_error(cube, fd, "Color/Texture definition missing in the map file");
 	close(fd);
 	// Should empty spaces be allowed before an identifier? I don't think so
+}
+
+// This fucntion will serve as a sort of hub
+// It calls `get_media()` to initiate the textures/colors and then it'll call
+// the function to check that the map is valid (function is yet to be created)
+void	get_map(t_cube *cube, char *map_fd)
+{
+	// V-- This should probably be moved to a different function --V
+	cube->textures.c_ceil = -1;
+	cube->textures.c_floor = -1;
+	cube->textures.east.addr = NULL;
+	cube->textures.west.addr = NULL;
+	cube->textures.south.addr = NULL;
+	cube->textures.north.addr = NULL;
+	if (ft_strlen(map_fd) < 5 || \
+		!ft_strnstr(map_fd + (ft_strlen(map_fd) - 4), ".cub", 5))
+		map_error(cube, -1, "Map is not type '<name>.cub'");
+	get_media(cube, map_fd);
 }

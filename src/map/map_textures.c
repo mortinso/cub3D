@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:53:47 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 17:46:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:34:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,12 @@ void	set_texture(t_cube *cube, int fd, char *line)
 		img = &cube->textures.east;
 	if (img->addr)
 	{
-		ft_printf("Error\nMultiple definition of %c%c\n", line[0], line[1]);
 		free(line);
-		map_error(cube, fd);
+		map_error(cube, fd, "Multiple definitions of the same texture element");
 	}
 	if (!init_texture(cube, line, img))
 	{
 		free(line);
-		map_error(cube, fd);
+		map_error(cube, fd, NULL);
 	}
 }
