@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 16:37:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 17:50:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+// Copies an image, pixel by pixel, to `cube->screen`
 void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y)
 {
 	char	*color;
@@ -48,6 +49,9 @@ int	render_frame(t_cube *cube)
 	return (0);
 }
 
+// Draws a grid with the textures and colors in the following order:
+// N W S
+// C E F
 void	draw_frame(t_cube *cube)
 {
 	int	x;

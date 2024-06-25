@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/21 15:26:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 17:46:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ unsigned int	get_color(t_cube *cube, int fd, char *line)
 	return (color);
 }
 
-void	save_color(t_cube *cube, int fd, char *line)
+// Finds what color should be set and checks that it hasn't already been set
+void	set_color(t_cube *cube, int fd, char *line)
 {
 	int	*color;
 

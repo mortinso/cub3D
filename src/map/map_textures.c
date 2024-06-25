@@ -6,12 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:53:47 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 16:56:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 17:46:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
 
+// Destroy textures, if they have already been set
 void	purge_textures(t_cube *cube)
 {
 	if (cube->textures.east.addr)
@@ -24,6 +25,8 @@ void	purge_textures(t_cube *cube)
 		mlx_destroy_image(cube->mlx, cube->textures.north.img);
 }
 
+// Trims all whitespaces from line and checks if the file is of type '.xpm'
+// Returns a cleaned up (char *)path if no error is found
 char	*texture_path(const char *line)
 {
 	char	*path;
@@ -41,6 +44,8 @@ char	*texture_path(const char *line)
 	return (path);
 }
 
+// Initiates the texture to the struct.
+// Returns 0 if it error, this was done to follow the norme
 int	init_texture(t_cube *cube, char *line, t_img *img)
 {
 	char	*path;
@@ -70,7 +75,9 @@ int	init_texture(t_cube *cube, char *line, t_img *img)
 	return (1);
 }
 
-void	save_texture(t_cube *cube, int fd, char *line)
+// Finds which texture should be set and checks that it hasn't already been set
+// Handles any errors that might be found in `init_texture()`
+void	set_texture(t_cube *cube, int fd, char *line)
 {
 	t_img	*img;
 

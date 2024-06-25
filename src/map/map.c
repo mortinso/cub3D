@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 17:17:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 17:55:04 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	get_map(t_cube *cube, char *map_fd)
 	int		fd;
 	char	*line;
 
+	// V-- This should be moved to a different function --V
 	cube->textures.c_ceil = -1;
 	cube->textures.c_floor = -1;
 	cube->textures.east.addr = NULL;
@@ -57,11 +58,11 @@ void	get_map(t_cube *cube, char *map_fd)
 	{
 		// Error if the program looks at the map before the media has been set
 		if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
-			save_color(cube, fd, line);
+			set_color(cube, fd, line);
 		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 \
 			|| ft_strncmp(line, "WE ", 3) == 0 || \
 			ft_strncmp(line, "EA ", 3) == 0)
-			save_texture(cube, fd, line);
+			set_texture(cube, fd, line);
 		free(line);
 		line = get_next_line(fd);
 	}
