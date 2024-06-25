@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 18:21:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:00:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int				is_all_digit(const char *str);
 void			set_color(t_cube *cube, int fd, char *line);
 
 // map_textures
+int				is_texture_identifier(const char *line);
 void			purge_textures(t_cube *cube);
 void			set_texture(t_cube *cube, int fd, char *line);
 

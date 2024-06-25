@@ -6,11 +6,19 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:53:47 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 18:34:25 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:22:49 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
+
+int	is_texture_identifier(const char *line)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || \
+		ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
+		return (1);
+	return (0);
+}
 
 // Destroy textures, if they have already been set
 void	purge_textures(t_cube *cube)
@@ -25,13 +33,13 @@ void	purge_textures(t_cube *cube)
 		mlx_destroy_image(cube->mlx, cube->textures.north.img);
 }
 
-// Trims all whitespaces from line and checks if the file is of type '.xpm'
+// Trims spaces and newlines from line and checks if the file is of type '.xpm'
 // Returns a cleaned up (char *)path if no error is found
 char	*texture_path(const char *line)
 {
 	char	*path;
 
-	path = ft_strtrim(line + 3, " \t\n");
+	path = ft_strtrim(line + 3, " \n");
 	if (!path)
 		ft_printf("Error\n Malloc failed\n");
 	else if (ft_strlen(path) < 5 || !ft_strnstr(path + (ft_strlen(path) - 4), \

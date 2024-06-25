@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 18:32:04 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:15:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,26 @@ int	media_is_set(t_cube *cube)
 	return (1);
 }
 
+// Complementary function of `get_media()`
+// Checks if we're looking at the map file before setting all media and if we
+// found an invalid character
+void	map_format_error(t_cube *cube, int fd, char *line)
+{
+	if (ft_strchr("01NSEW ", line[0]))
+	{
+		if (!media_is_set(cube))
+		{
+			free(line);
+			map_error(cube, fd, "Map must be at the end of the file");
+		}
+	}
+	else if (line[0] != '\n')
+	{
+		free(line);
+		map_error(cube, fd, "Invalid character found on map file");
+	}
+}
+
 // Parses the map file and initiates the colors and textures
 void	get_media(t_cube *cube, char *map_fd)
 {
@@ -50,15 +70,12 @@ void	get_media(t_cube *cube, char *map_fd)
 		map_error(cube, fd, "GNL failed");
 	while (line)
 	{
-		// Error if the program looks at the map before the media has been set
-		// Maybe create a function that checks if the string is a valid texture
-		// identifier, this would save us some lines of code for the norme
 		if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
 			set_color(cube, fd, line);
-		else if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) \
-			== 0 || ft_strncmp(line, "WE ", 3) == 0 || \
-			ft_strncmp(line, "EA ", 3) == 0)
+		else if (is_texture_identifier(line))
 			set_texture(cube, fd, line);
+		else
+			map_format_error(cube, fd, line);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -66,7 +83,6 @@ void	get_media(t_cube *cube, char *map_fd)
 	if (!media_is_set(cube))
 		map_error(cube, fd, "Color/Texture definition missing in the map file");
 	close(fd);
-	// Should empty spaces be allowed before an identifier? I don't think so
 }
 
 // This fucntion will serve as a sort of hub

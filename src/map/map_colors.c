@@ -6,13 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 18:33:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:02:42 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
 
-// Trims spaces, tabs and newlines from all members of rgb
+// Trims spaces and newlines from all members of rgb
 // Returns 0 if a malloc error occurs
 int	clean_color(char **rgb)
 {
@@ -22,7 +22,7 @@ int	clean_color(char **rgb)
 	i = 0;
 	while (rgb[i])
 	{
-		tmp = ft_strtrim(rgb[i], " \t\n");
+		tmp = ft_strtrim(rgb[i], " \n");
 		if (!tmp)
 		{
 			free_array(rgb);
