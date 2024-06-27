@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 19:15:25 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:01:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	map_error(t_cube *cube, int fd, char *error_msg)
 {
 	if (error_msg != NULL)
 		ft_printf("Error\n%s\n", error_msg);
+	if (cube->map)
+		free_array(cube->map);
 	if (fd >= 0)
 		close(fd);
 	purge_textures(cube);
@@ -46,7 +48,7 @@ void	map_format_error(t_cube *cube, int fd, char *line)
 		if (!media_is_set(cube))
 		{
 			free(line);
-			map_error(cube, fd, "Map must be at the end of the file");
+			map_error(cube, fd, "Map content must be the file's last element");
 		}
 	}
 	else if (line[0] != '\n')
@@ -67,7 +69,7 @@ void	get_media(t_cube *cube, char *map_fd)
 		map_error(cube, -1, "Failed to open map file");
 	line = get_next_line(fd);
 	if (!line)
-		map_error(cube, fd, "GNL failed");
+		map_error(cube, fd, "Map file is empty");
 	while (line)
 	{
 		if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
@@ -91,6 +93,7 @@ void	get_media(t_cube *cube, char *map_fd)
 void	get_map(t_cube *cube, char *map_fd)
 {
 	// V-- This should probably be moved to a different function --V
+	cube->map = NULL;
 	cube->textures.c_ceil = -1;
 	cube->textures.c_floor = -1;
 	cube->textures.east.addr = NULL;
@@ -101,4 +104,5 @@ void	get_map(t_cube *cube, char *map_fd)
 		!ft_strnstr(map_fd + (ft_strlen(map_fd) - 4), ".cub", 5))
 		map_error(cube, -1, "Map is not type '<name>.cub'");
 	get_media(cube, map_fd);
+	save_map(cube, map_fd);
 }

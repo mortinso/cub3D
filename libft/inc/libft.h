@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:30:24 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/12 18:04:51 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:03:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 // For get_next_line
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1
 # endif
 
 int				ft_atoi(const char *s);

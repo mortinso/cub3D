@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/27 16:25:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:02:09 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_cube {
 	void		*mlx;
 	void		*window;
 	char		**map;
+	int			map_size;
 	t_textures	textures;
 	t_img		screen;
 }	t_cube;
@@ -63,6 +64,9 @@ int				is_all_digit(const char *str);
 // +++++++++++++++ map/[.....] ++++++++++++++++++++++++++++++++++++++++++++++++
 // map_colors.c
 void			set_color(t_cube *cube, int fd, char *line);
+
+// map_content.c
+void			save_map(t_cube *cube, char *map_fd);
 
 // map_textures
 int				is_texture_identifier(const char *line);
