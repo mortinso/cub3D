@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 17:50:48 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:04:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	main(int argc, char **argv)
 		exit (1);
 	}
 	get_map(&cube, argv[1]);
+	draw_frame(&cube);
 	cube.window = mlx_new_window(cube.mlx, 1920, 1080, "cub3D");
 	if (!cube.window)
 	{
@@ -117,7 +118,6 @@ int	main(int argc, char **argv)
 		ft_printf("Window failed\n");
 		exit (1);
 	}
-	draw_frame(&cube);
 	mlx_hook(cube.window, 2, 1L << 0, keypress, &cube);
 	mlx_hook(cube.window, 17, 0L, destruct, &cube);
 	mlx_loop_hook(cube.mlx, render_frame, &cube);

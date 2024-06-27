@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:53:47 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 19:22:49 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:55:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	set_texture(t_cube *cube, int fd, char *line)
 {
 	t_img	*img;
 
+	img = NULL;
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		img = &cube->textures.north;
 	else if (ft_strncmp(line, "SO ", 3) == 0)

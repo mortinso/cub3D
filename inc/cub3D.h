@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/25 19:00:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:25:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 //----------------------------------INCLUDES------------------------------------
-# include <mlx.h>
+# include "../minilibx-linux/mlx.h"
 # include "../libft/inc/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
@@ -45,6 +45,7 @@ typedef struct s_textures {
 typedef struct s_cube {
 	void		*mlx;
 	void		*window;
+	char		**map;
 	t_textures	textures;
 	t_img		screen;
 }	t_cube;
