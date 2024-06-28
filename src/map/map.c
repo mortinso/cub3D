@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/27 18:01:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:44:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	map_error(t_cube *cube, int fd, char *error_msg)
 {
 	if (error_msg != NULL)
 		ft_printf("Error\n%s\n", error_msg);
-	if (cube->map)
-		free_array(cube->map);
+	if (cube->map.map)
+		free_array(cube->map.map);
 	if (fd >= 0)
 		close(fd);
 	purge_textures(cube);
@@ -43,15 +43,12 @@ int	media_is_set(t_cube *cube)
 // found an invalid character
 void	map_format_error(t_cube *cube, int fd, char *line)
 {
-	if (ft_strchr("01NSEW ", line[0]))
+	if (ft_strchr("01NSEW ", line[0]) && !media_is_set(cube))
 	{
-		if (!media_is_set(cube))
-		{
-			free(line);
-			map_error(cube, fd, "Map content must be the file's last element");
-		}
+		free(line);
+		map_error(cube, fd, "All media must be defined before the map content");
 	}
-	else if (line[0] != '\n')
+	else if (!ft_strchr("01NSEW ", line[0]) && line[0] != '\n')
 	{
 		free(line);
 		map_error(cube, fd, "Invalid character found on map file");
@@ -93,7 +90,7 @@ void	get_media(t_cube *cube, char *map_fd)
 void	get_map(t_cube *cube, char *map_fd)
 {
 	// V-- This should probably be moved to a different function --V
-	cube->map = NULL;
+	cube->map.map = NULL;
 	cube->textures.c_ceil = -1;
 	cube->textures.c_floor = -1;
 	cube->textures.east.addr = NULL;
@@ -104,5 +101,5 @@ void	get_map(t_cube *cube, char *map_fd)
 		!ft_strnstr(map_fd + (ft_strlen(map_fd) - 4), ".cub", 5))
 		map_error(cube, -1, "Map is not type '<name>.cub'");
 	get_media(cube, map_fd);
-	save_map(cube, map_fd);
+	get_content(cube, map_fd);
 }

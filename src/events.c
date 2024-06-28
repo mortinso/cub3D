@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/27 17:50:31 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:26:03 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	destruct(t_cube *cube)
 {
-	if (cube->map)
-		free_array(cube->map);
+	if (cube->map.map)
+		free_array(cube->map.map);
 	purge_textures(cube);
 	mlx_destroy_image(cube->mlx, cube->screen.img);
 	mlx_clear_window(cube->mlx, cube->window);

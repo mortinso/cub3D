@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 16:19:27 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/27 18:01:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:33:05 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	find_map(t_cube *cube, char *map_fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (!line)
+		map_error(cube, fd, "Missing map content");
 	free(line);
 	close(fd);
 	return (pos);
@@ -41,7 +43,7 @@ int	find_map(t_cube *cube, char *map_fd)
 
 void	map_dup(t_cube *cube, int fd, int pos)
 {
-	char	*line; // Could this be replaceable with cube->map[i]?
+	char	*line;
 	int		i;
 
 	if (fd < 0)
@@ -53,15 +55,19 @@ void	map_dup(t_cube *cube, int fd, int pos)
 	while (line)
 	{
 		if (i >= pos)
-			cube->map[i - pos] = ft_strdup(line);
-		if (i >= pos && cube->map[i - pos][ft_strlen(cube->map[i - pos]) - 1] == '\n')
-			cube->map[i - pos][ft_strlen(cube->map[i - pos]) - 1] = 0;
+			cube->map.map[i - pos] = ft_strdup(line);
+		if (i >= pos && (i - pos) < (cube->map.size - 1) && \
+			line[ft_strlen(line) - 1] == '\n')
+			cube->map.map[i - pos][ft_strlen(cube->map.map[i - pos]) - 1] = 0;
 		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
-	cube->map[i - pos] = NULL;
+	i -= pos;
+	cube->map.map[i] = NULL;
+	if (cube->map.map[i - 1][ft_strlen(cube->map.map[i - 1]) - 1] == '\n')
+		map_error(cube, fd, "Empty line at EOF");
 }
 
 // Allocates to the struct, a char** where the map will be stored
@@ -85,15 +91,14 @@ void	alloc_map(t_cube *cube, char *map_fd, int map_pos)
 		line = get_next_line(fd);
 	}
 	free(line);
-	cube->map = (char **)malloc(sizeof(char *) * (i - map_pos + 1));
-	if (!cube->map)
+	cube->map.map = (char **)malloc(sizeof(char *) * (i - map_pos + 1));
+	if (!cube->map.map)
 		map_error(cube, fd, "Malloc error");
-	cube->map_size = i - map_pos;
+	cube->map.size = i - map_pos;
 	close(fd);
 }
 
-
-void	save_map(t_cube *cube, char *map_fd)
+void	get_content(t_cube *cube, char *map_fd)
 {
 	int	fd;
 	int	map_pos;
@@ -103,12 +108,12 @@ void	save_map(t_cube *cube, char *map_fd)
 	fd = open(map_fd, O_RDONLY);
 	map_dup(cube, fd, map_pos);
 	close(fd);
-	//Missing all checks
-
+	// Check forbidden characters (and # of player starting pos)
+	// Check surounded by walls
 
 	// Debug:
 	int i = 0;
 	ft_printf("Map:\n");
-	while (i < cube->map_size)
-		ft_printf("%s\n", cube->map[i++]);
+	while (i < cube->map.size)
+		ft_printf("%s\n", cube->map.map[i++]);
 }
