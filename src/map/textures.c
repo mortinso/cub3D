@@ -6,12 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:53:47 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 18:01:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:35:27 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
 
+// Returns true if line has a valid texture identifier
 int	is_texture_identifier(const char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || \

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 17:44:29 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:21:02 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	map_format_error(t_cube *cube, int fd, char *line)
 	else if (!ft_strchr("01NSEW ", line[0]) && line[0] != '\n')
 	{
 		free(line);
-		map_error(cube, fd, "Invalid character found on map file");
+		map_error(cube, fd, "Invalid identifier on map file");
 	}
 }
 

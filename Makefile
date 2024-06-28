@@ -8,7 +8,7 @@ INC_DIR = inc
 OBJ_DIR = .obj
 LFT_DIR = libft
 
-MAP_SRC = map.c colors.c textures.c content.c
+MAP_SRC = map.c colors.c textures.c content.c content_check.c
 SRC_FILES = main.c events.c utils.c $(addprefix map/, $(MAP_SRC))
 INC_FILES = cub3D.h
 

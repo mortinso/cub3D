@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 18:03:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:36:38 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,30 @@ typedef struct s_cube {
 //------------------------------------SRCS--------------------------------------
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // events.c
-int				destruct(t_cube *cube);
-int				keypress(int key, t_cube *cube);
+int		destruct(t_cube *cube);
+int		keypress(int key, t_cube *cube);
 
 // utils.c
-void			free_array(char **array);
-int				is_all_digit(const char *str);
+void	free_array(char **array);
+int		is_all_digit(const char *str);
 
 // +++++++++++++++ map/[.....] ++++++++++++++++++++++++++++++++++++++++++++++++
 // colors.c
-void			set_color(t_cube *cube, int fd, char *line);
+void	set_color(t_cube *cube, int fd, char *line);
+
+// content_check.c
+void	map_chars(t_cube *cube);
 
 // content.c
-void			get_content(t_cube *cube, char *map_fd);
+void	get_content(t_cube *cube, char *map_fd);
 
 // map.c
-void			get_map(t_cube *cube, char *map_fd);
-void			map_error(t_cube *cube, int fd, char *error_msg);
+void	get_map(t_cube *cube, char *map_fd);
+void	map_error(t_cube *cube, int fd, char *error_msg);
 
 // textures.c
-int				is_texture_identifier(const char *line);
-void			purge_textures(t_cube *cube);
-void			set_texture(t_cube *cube, int fd, char *line);
+int		is_texture_identifier(const char *line);
+void	purge_textures(t_cube *cube);
+void	set_texture(t_cube *cube, int fd, char *line);
 
 #endif

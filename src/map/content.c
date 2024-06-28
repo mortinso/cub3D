@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 16:19:27 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 18:01:34 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:32:21 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int	find_map(t_cube *cube, char *map_fd)
 	return (pos);
 }
 
+// Adds the map, line by line to the struct
+// Replaces all newlines with null character, except for the last line
+// Errors if theres a newline at the end of the map
 void	map_dup(t_cube *cube, int fd, int pos)
 {
 	char	*line;
@@ -98,6 +101,8 @@ void	alloc_map(t_cube *cube, char *map_fd, int map_pos)
 	close(fd);
 }
 
+// Calls functions that add the map to the struct and then check it for any
+// errors
 void	get_content(t_cube *cube, char *map_fd)
 {
 	int	fd;
@@ -108,6 +113,7 @@ void	get_content(t_cube *cube, char *map_fd)
 	fd = open(map_fd, O_RDONLY);
 	map_dup(cube, fd, map_pos);
 	close(fd);
+	map_chars(cube);
 	// Check forbidden characters (and # of player starting pos)
 	// Check surounded by walls
 
