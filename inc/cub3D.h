@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 18:36:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/11 00:45:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	set_color(t_cube *cube, int fd, char *line);
 
 // content_check.c
 void	map_chars(t_cube *cube);
+void	map_closed(t_cube *cube);
 
 // content.c
 void	get_content(t_cube *cube, char *map_fd);

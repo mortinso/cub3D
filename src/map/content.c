@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 16:19:27 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 18:32:21 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/11 00:56:47 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,9 @@ void	get_content(t_cube *cube, char *map_fd)
 	map_dup(cube, fd, map_pos);
 	close(fd);
 	map_chars(cube);
-	// Check forbidden characters (and # of player starting pos)
-	// Check surounded by walls
+	map_closed(cube);
 
-	// Debug:
+	// Output map:
 	int i = 0;
 	ft_printf("Map:\n");
 	while (i < cube->map.size)
