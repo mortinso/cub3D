@@ -6,15 +6,15 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 11:08:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:09:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define SCREEN_W 1280
-# define SCREEN_H 720
+# define SCREEN_W 1056
+# define SCREEN_H 576
 
 //----------------------------------INCLUDES------------------------------------
 // # include "../minilibx-linux/mlx.h" // For 42 pcs
@@ -26,7 +26,7 @@
 
 # define PI 3.1415926535
 
-# define GRID_CELL 16 //for 2D view
+# define GRID_CELL 32 //for 2D view
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
 # define KEY_W 119

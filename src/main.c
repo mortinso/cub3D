@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 11:14:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:06:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,47 @@ int	render_frame(t_cube *cube)
 	return (0);
 }
 
-// Draws a grid with the textures and colors in the following order:
-// N W S
-// C E F
 void	draw_frame(t_cube *cube)
 {
 	int	x;
 	int	y;
+	int	i;
+	int	j;
 
 	cube->screen.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
 	cube->screen.addr = mlx_get_data_addr(cube->screen.img, &cube->screen.bpp, \
 		&cube->screen.length, &cube->screen.endian);
-// Colors
+
 	y = 0;
-	while (y < (SCREEN_H / 2))
+	while (cube->map.map[y])
 	{
 		x = 0;
-		while (x < SCREEN_W)
-			my_mlx_pixel_put(&cube->screen, x++, y, cube->textures.c_ceil);
+		while (cube->map.map[y][x])
+		{
+			if (cube->map.map[y][x] == '1')
+			{
+				i = 0;
+				while (++i < GRID_CELL)
+				{
+					j = 0;
+					while (++j < GRID_CELL)
+						my_mlx_pixel_put(&cube->screen, (x * 32) + j, (y * 32) + i, 0x00ffffff);
+				}
+			}
+			if (ft_strchr("nsew", cube->map.map[y][x]))
+			{
+				i = 0;
+				while (++i < GRID_CELL)
+				{
+					j = 0;
+					while (++j < GRID_CELL)
+						my_mlx_pixel_put(&cube->screen, (x * 32) + j, (y * 32) + i, 0x00ffff00);
+				}
+			}
+			x++;
+		}
 		y++;
 	}
-	while (y < SCREEN_H)
-	{
-		x = 0;
-		while (x < SCREEN_W)
-			my_mlx_pixel_put(&cube->screen, x++, y, cube->textures.c_floor);
-		y++;
-	}
-// Textures
-	put_texture(cube, &cube->textures.north, 0, 0);
-	put_texture(cube, &cube->textures.west, 32, 0);
-	put_texture(cube, &cube->textures.south, 64, 0);
-	put_texture(cube, &cube->textures.east, 96, 0);
 }
 
 int	main(int argc, char **argv)
