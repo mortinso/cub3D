@@ -6,12 +6,15 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 10:53:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 11:08:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# define SCREEN_W 1280
+# define SCREEN_H 720
 
 //----------------------------------INCLUDES------------------------------------
 // # include "../minilibx-linux/mlx.h" // For 42 pcs

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/27 16:04:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 11:14:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,41 +57,30 @@ void	draw_frame(t_cube *cube)
 	int	x;
 	int	y;
 
-	cube->screen.img = mlx_new_image(cube->mlx, 1920, 1080);
+	cube->screen.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
 	cube->screen.addr = mlx_get_data_addr(cube->screen.img, &cube->screen.bpp, \
 		&cube->screen.length, &cube->screen.endian);
+// Colors
+	y = 0;
+	while (y < (SCREEN_H / 2))
+	{
+		x = 0;
+		while (x < SCREEN_W)
+			my_mlx_pixel_put(&cube->screen, x++, y, cube->textures.c_ceil);
+		y++;
+	}
+	while (y < SCREEN_H)
+	{
+		x = 0;
+		while (x < SCREEN_W)
+			my_mlx_pixel_put(&cube->screen, x++, y, cube->textures.c_floor);
+		y++;
+	}
 // Textures
 	put_texture(cube, &cube->textures.north, 0, 0);
-	put_texture(cube, &cube->textures.west, 639, 0);
-	put_texture(cube, &cube->textures.south, 1279, 0);
-	put_texture(cube, &cube->textures.east, 639, 539);
-// Colors
-	x = 0;
-	while (x < 639)
-	{
-		y = 539;
-		while (y < 1080)
-			my_mlx_pixel_put(&cube->screen, x, y++, cube->textures.c_ceil);
-		x++;
-	}
-	x = 1279;
-	while (x < 1920)
-	{
-		y = 539;
-		while (y < 1080)
-			my_mlx_pixel_put(&cube->screen, x, y++, cube->textures.c_floor);
-		x++;
-	}
-// Grid
-	x = 0;
-	while (x < 1920)
-		my_mlx_pixel_put(&cube->screen, x++, 539, 0x00ffffff);
-	y = 0;
-	while (y < 1080)
-		my_mlx_pixel_put(&cube->screen, 639, y++, 0x00ffffff);
-	y = 0;
-	while (y < 1080)
-		my_mlx_pixel_put(&cube->screen, 1279, y++, 0x00ffffff);
+	put_texture(cube, &cube->textures.west, 32, 0);
+	put_texture(cube, &cube->textures.south, 64, 0);
+	put_texture(cube, &cube->textures.east, 96, 0);
 }
 
 int	main(int argc, char **argv)
@@ -111,7 +100,7 @@ int	main(int argc, char **argv)
 	}
 	get_map(&cube, argv[1]);
 	draw_frame(&cube);
-	cube.window = mlx_new_window(cube.mlx, 1920, 1080, "cub3D");
+	cube.window = mlx_new_window(cube.mlx, SCREEN_W, SCREEN_H, "cub3D");
 	if (!cube.window)
 	{
 		free(cube.mlx);
