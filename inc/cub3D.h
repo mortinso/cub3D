@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 08:20:30 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:53:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define GRID_CELL 16 //for 2D view
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
-# define KEY_W //vakue
-# define KEY_A //vakue
-# define KEY_S //vakue
-# define KEY_D //vakue
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_img
