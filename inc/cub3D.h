@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/11 00:45:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 08:20:30 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,21 @@
 # include "../libft/inc/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 
+# define PI 3.1415926535
+
+# define GRID_CELL 16 //for 2D view
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
+# define KEY_W //vakue
+# define KEY_A //vakue
+# define KEY_S //vakue
+# define KEY_D //vakue
 
 //-----------------------------------STRUCT-------------------------------------
-typedef struct s_img {
+typedef struct s_img
+{
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -34,7 +43,8 @@ typedef struct s_img {
 	int		height;
 }	t_img;
 
-typedef struct s_textures {
+typedef struct s_textures
+{
 	t_img	north;
 	t_img	south;
 	t_img	east;
@@ -43,12 +53,23 @@ typedef struct s_textures {
 	int		c_floor;
 }	t_textures;
 
-typedef struct s_map {
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	float	angle;
+	float	delta_x;
+	float	delta_y;
+} t_player;
+
+typedef struct s_map
+{
 	char	**map;
 	int		size;
 }	t_map;
 
-typedef struct s_cube {
+typedef struct s_cube
+{
 	void		*mlx;
 	void		*window;
 	t_map		map;
