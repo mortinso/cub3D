@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 12:06:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:55:20 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ void	draw_frame(t_cube *cube)
 			}
 			if (ft_strchr("nsew", cube->map.map[y][x]))
 			{
-				i = 0;
-				while (++i < GRID_CELL)
+				i = (GRID_CELL / 2) - (PLAYER_SIZE / 2);
+				while (++i < ((GRID_CELL / 2) + (PLAYER_SIZE / 2)))
 				{
-					j = 0;
-					while (++j < GRID_CELL)
+					j = (GRID_CELL / 2) - (PLAYER_SIZE / 2);
+					while (++j < ((GRID_CELL / 2) + (PLAYER_SIZE / 2)))
 						my_mlx_pixel_put(&cube->screen, (x * 32) + j, (y * 32) + i, 0x00ffff00);
 				}
 			}

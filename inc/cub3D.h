@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 12:09:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 13:05:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@
 
 # define PI 3.1415926535
 
-# define GRID_CELL 32 //for 2D view
+// v-------- 2Dview -------v
+# define GRID_CELL 32 //2D
+# define PLAYER_SIZE 8 //2D
+
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
 # define KEY_W 119
@@ -63,7 +66,7 @@ typedef struct s_player
 	float	angle;
 	float	delta_x;
 	float	delta_y;
-} t_player;
+}	t_player;
 
 typedef struct s_map
 {
