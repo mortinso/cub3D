@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 12:55:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/28 07:21:08 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,24 @@ int	render_frame(t_cube *cube)
 	return (0);
 }
 
+void	draw_cell(t_cube *cube, int x, int y, unsigned int color)
+{
+	int	temp_x;
+	int	temp_y;
+
+	temp_y = 0;
+	while (++temp_y < GRID_CELL)
+	{
+		temp_x = 0;
+		while (++temp_x < GRID_CELL)
+			my_mlx_pixel_put(&cube->screen, x + temp_x, y + temp_y, color);
+	}
+}
+
 void	draw_frame(t_cube *cube)
 {
 	int	x;
 	int	y;
-	int	i;
-	int	j;
 
 	cube->screen.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
 	cube->screen.addr = mlx_get_data_addr(cube->screen.img, &cube->screen.bpp, \
@@ -67,25 +79,20 @@ void	draw_frame(t_cube *cube)
 		while (cube->map.map[y][x])
 		{
 			if (cube->map.map[y][x] == '1')
-			{
-				i = 0;
-				while (++i < GRID_CELL)
-				{
-					j = 0;
-					while (++j < GRID_CELL)
-						my_mlx_pixel_put(&cube->screen, (x * 32) + j, (y * 32) + i, 0x00ffffff);
-				}
-			}
-			if (ft_strchr("nsew", cube->map.map[y][x]))
-			{
-				i = (GRID_CELL / 2) - (PLAYER_SIZE / 2);
-				while (++i < ((GRID_CELL / 2) + (PLAYER_SIZE / 2)))
-				{
-					j = (GRID_CELL / 2) - (PLAYER_SIZE / 2);
-					while (++j < ((GRID_CELL / 2) + (PLAYER_SIZE / 2)))
-						my_mlx_pixel_put(&cube->screen, (x * 32) + j, (y * 32) + i, 0x00ffff00);
-				}
-			}
+				draw_cell(cube, x * GRID_CELL, y * GRID_CELL, 0x00ffffff);
+			if (cube->map.map[y][x] == '0')
+				draw_cell(cube, x * GRID_CELL, y * GRID_CELL, cube->textures.c_floor);
+			x++;
+		}
+		y++;
+	}
+	y = 0;
+	while (y < PLAYER_SIZE)
+	{
+		x = 0;
+		while (x < PLAYER_SIZE)
+		{
+			my_mlx_pixel_put(&cube->screen, cube->player.x + x, cube->player.y + y, 0x00ffff00);
 			x++;
 		}
 		y++;
@@ -107,7 +114,7 @@ int	main(int argc, char **argv)
 		ft_printf("MLX failed\n");
 		exit (1);
 	}
-	get_map(&cube, argv[1]);
+	init(&cube, argv[1]);
 	draw_frame(&cube);
 	cube.window = mlx_new_window(cube.mlx, SCREEN_W, SCREEN_H, "cub3D");
 	if (!cube.window)

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 13:05:25 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/27 22:24:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_cube
 	t_map		map;
 	t_textures	textures;
 	t_img		screen;
+	t_player	player;
 }	t_cube;
 
 //------------------------------------SRCS--------------------------------------
@@ -88,6 +89,9 @@ typedef struct s_cube
 // events.c
 int		destruct(t_cube *cube);
 int		keypress(int key, t_cube *cube);
+
+// init.c
+void	init(t_cube *cube, char *map_fd);
 
 // utils.c
 void	free_array(char **array);

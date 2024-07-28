@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 13:03:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/28 07:23:54 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,23 @@ int	destruct(t_cube *cube)
 	return (0);
 }
 
+// int	move(t_cube *cube, float x, float y)
+// {
+// 	int	temp_x;
+// 	int	temp_y;
+
+// 	temp_x = cube->player.x;
+// 	temp_y = cube->player.y;
+	
+// }
+
 int	keypress(int key, t_cube *cube)
 {
 	if (key == KEY_ESC)
 		destruct(cube);
+	// if (key == KEY_W)
+	// 	move(cube, 0, 1);
+	// if (key == KEY_S)
+	// 	move(cube, 0, -1);
 	return (0);
 }
