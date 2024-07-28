@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/28 07:21:08 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/28 07:44:58 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,24 @@ void	draw_cell(t_cube *cube, int x, int y, unsigned int color)
 	}
 }
 
+void	draw_player(t_cube *cube, int x, int y, unsigned int color)
+{
+	int	temp_x;
+	int	temp_y;
+
+	temp_y = 0;
+	while (temp_y < PLAYER_SIZE)
+	{
+		temp_x = 0;
+		while (temp_x < PLAYER_SIZE)
+		{
+			my_mlx_pixel_put(&cube->screen, x + temp_x, y + temp_y, color);
+			temp_x++;
+		}
+		temp_y++;
+	}
+}
+
 void	draw_frame(t_cube *cube)
 {
 	int	x;
@@ -80,23 +98,13 @@ void	draw_frame(t_cube *cube)
 		{
 			if (cube->map.map[y][x] == '1')
 				draw_cell(cube, x * GRID_CELL, y * GRID_CELL, 0x00ffffff);
-			if (cube->map.map[y][x] == '0')
+			if (ft_strchr("nsewO", cube->map.map[y][x]))
 				draw_cell(cube, x * GRID_CELL, y * GRID_CELL, cube->textures.c_floor);
 			x++;
 		}
 		y++;
 	}
-	y = 0;
-	while (y < PLAYER_SIZE)
-	{
-		x = 0;
-		while (x < PLAYER_SIZE)
-		{
-			my_mlx_pixel_put(&cube->screen, cube->player.x + x, cube->player.y + y, 0x00ffff00);
-			x++;
-		}
-		y++;
-	}
+	draw_player(cube, cube->player.x, cube->player.y, 0x00ff0000);
 }
 
 int	main(int argc, char **argv)

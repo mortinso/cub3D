@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 22:24:35 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/28 07:42:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ int		keypress(int key, t_cube *cube);
 
 // init.c
 void	init(t_cube *cube, char *map_fd);
+
+// main.c
+void	draw_player(t_cube *cube, int x, int y, unsigned int color);
 
 // utils.c
 void	free_array(char **array);
