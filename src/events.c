@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/28 07:46:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:00:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,25 @@ int	destruct(t_cube *cube)
 	return (0);
 }
 
-void	move(t_cube *cube, float x, float y)
+// Function to move
+// 1 = forward
+// -1 = backwards
+void	move(t_cube *cube, int direction)
 {
-	draw_player(cube, cube->player.x, cube->player.y, (unsigned int)cube->textures.c_floor);
-	cube->player.x += x;
-	cube->player.y += y;
-	draw_player(cube, cube->player.x, cube->player.y, 0x00ff0000);
+	if (direction != 1 && direction != -1)
+		return ;
+	draw_player(cube, cube->player.x, cube->player.y, (unsigned int)cube->textures.c_ceil);
+	if (direction == 1)
+	{
+		cube->player.x += cube->player.delta_x;
+		cube->player.y += cube->player.delta_y;
+	}
+	if (direction == -1)
+	{
+		cube->player.x -= cube->player.delta_x;
+		cube->player.y -= cube->player.delta_y;
+	}
+	draw_player(cube, cube->player.x, cube->player.y, 0x0000ff00);
 }
 
 int	keypress(int key, t_cube *cube)
@@ -39,12 +52,24 @@ int	keypress(int key, t_cube *cube)
 	if (key == KEY_ESC)
 		destruct(cube);
 	if (key == KEY_W)
-		move(cube, 0, -1);
+		move(cube, 1);
 	if (key == KEY_S)
-		move(cube, 0, 1);
+		move(cube, -1);
 	if (key == KEY_A)
-		move(cube, -1, 0);
+	{
+		cube->player.angle -= 0.1;
+		if (cube->player.angle < 0)
+			cube->player.angle += 2 * PI;
+		cube->player.delta_x = cos(cube->player.angle) * 5; // * 5 cause values are small
+		cube->player.delta_y = sin(cube->player.angle) * 5; // * 5 cause values are small
+	}
 	if (key == KEY_D)
-		move(cube, 1, 0);
+	{
+		cube->player.angle += 0.1;
+		if (cube->player.angle > 2 * PI)
+			cube->player.angle -= 2 * PI;
+		cube->player.delta_x = cos(cube->player.angle) * 5; // * 5 cause values are small
+		cube->player.delta_y = sin(cube->player.angle) * 5; // * 5 cause values are small
+	}
 	return (0);
 }

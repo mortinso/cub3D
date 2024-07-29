@@ -12,7 +12,7 @@ MAP_SRC = map.c colors.c textures.c content.c content_check.c
 SRC_FILES = main.c events.c utils.c init.c $(addprefix map/, $(MAP_SRC))
 INC_FILES = cub3D.h
 
-LIB = -L minilibx-linux -lmlx -lXext -lX11
+LIB = -L minilibx-linux -lmlx -lXext -lX11 -lm
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 HDRS = $(addprefix $(INC_DIR)/, $(INC_FILES))
