@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 13:49:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:13:12 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ typedef struct s_cube
 
 //------------------------------------SRCS--------------------------------------
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
+// 2D.c
+void	draw_frame(t_cube *cube);
+void	draw_player(t_cube *cube);
+
 // events.c
 int		destruct(t_cube *cube);
 int		keypress(int key, t_cube *cube);
@@ -97,7 +101,7 @@ int		keypress(int key, t_cube *cube);
 void	init(t_cube *cube, char *map_fd);
 
 // main.c
-void	draw_player(t_cube *cube);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 // utils.c
 void	free_array(char **array);
