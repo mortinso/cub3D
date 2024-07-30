@@ -6,12 +6,13 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 12:48:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:02:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
+// Puts a pixel to an image, while mlx's version puts pixels to a window
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
@@ -43,55 +44,58 @@ void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y)
 	}
 }
 
+// Function that draws to the window
 int	render_frame(t_cube *cube)
 {
 	mlx_put_image_to_window(cube->mlx, cube->window, cube->screen.img, 0, 0);
+	draw_player(cube);
 	return (0);
 }
 
+// Draws a cell on cube->screen of color color
 void	draw_cell(t_cube *cube, int x, int y, unsigned int color)
 {
 	int	temp_x;
 	int	temp_y;
 
 	temp_y = 0;
-	while (++temp_y < CELL)
+	while (temp_y < CELL)
 	{
 		temp_x = 0;
-		while (++temp_x < CELL)
-			my_mlx_pixel_put(&cube->screen, x + temp_x, y + temp_y, color);
-	}
-}
-
-void	draw_player(t_cube *cube, unsigned int color, int draw_angle)
-{
-	float	temp_x;
-	float	temp_y;
-
-	temp_y = (P_SIZE / 2) * -1;
-	while (temp_y < P_SIZE / 2)
-	{
-		temp_x = (P_SIZE / 2) * -1;
-		while (temp_x < P_SIZE / 2)
+		while (temp_x < CELL)
 		{
-			my_mlx_pixel_put(&cube->screen, cube->player.x + temp_x, cube->player.y + temp_y, color);
+			my_mlx_pixel_put(&cube->screen, x + temp_x, y + temp_y, color);
 			temp_x++;
 		}
 		temp_y++;
 	}
-	if (draw_angle)
+}
+
+// Draws the player and a representation of its view angle on the window
+void	draw_player(t_cube *cube)
+{
+	float	temp_x;
+	float	temp_y;
+
+	temp_y = cube->player.y - (P_SIZE / 2);
+	while (temp_y < (cube->player.y + (P_SIZE / 2)))
 	{
-		temp_y = cube->player.y;
-		temp_x = cube->player.x;
-		while (temp_x > 0 && temp_y > 0 && (temp_x < SCREEN_W - 1) && (temp_y < SCREEN_H - 1))
-		{
-			my_mlx_pixel_put(&cube->screen, temp_x, temp_y, 0x00000000);
-			temp_x += (cube->player.delta_x / 5); // Dividing for the multiplied value so the line is congruent
-			temp_y += (cube->player.delta_y / 5); // Dividing for the multiplied value so the line is congruent
-		}
+		temp_x = cube->player.x - (P_SIZE / 2);
+		while (temp_x < (cube->player.x + (P_SIZE / 2)))
+			mlx_pixel_put(cube->mlx, cube->window, temp_x++, temp_y, P_COLOR);
+		temp_y++;
+	}
+	temp_y = cube->player.y + cube->player.delta_y;
+	temp_x = cube->player.x + cube->player.delta_x;
+	while (temp_x > 0 && temp_y > 0 && (temp_x < SCREEN_W - 1) && (temp_y < SCREEN_H - 1))
+	{
+		mlx_pixel_put(cube->mlx, cube->window, temp_x, temp_y, A_COLOR);
+		temp_x += (cube->player.delta_x / 5); // Dividing for the multiplied value so the line is congruent
+		temp_y += (cube->player.delta_y / 5); // Dividing for the multiplied value so the line is congruent
 	}
 }
 
+// Draws the map
 void	draw_frame(t_cube *cube)
 {
 	int	x;
@@ -108,14 +112,13 @@ void	draw_frame(t_cube *cube)
 		while (cube->map.map[y][x])
 		{
 			if (cube->map.map[y][x] == '1')
-				draw_cell(cube, x * CELL, y * CELL, 0x00ffffff);
+				put_texture(cube, &cube->textures.north, x * CELL, y * CELL);
 			if (ft_strchr("nsewO", cube->map.map[y][x]))
 				draw_cell(cube, x * CELL, y * CELL, cube->textures.c_floor);
 			x++;
 		}
 		y++;
 	}
-	draw_player(cube, 0x00ff0000, 0);
 }
 
 int	main(int argc, char **argv)

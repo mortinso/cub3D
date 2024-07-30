@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 12:21:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:49:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 // v-------- 2Dview -------v
 # define CELL 32 //2D
 # define P_SIZE 7 //2D
+# define P_COLOR 0x00ff0000
+# define A_COLOR 0x00000000
 
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
@@ -95,7 +97,7 @@ int		keypress(int key, t_cube *cube);
 void	init(t_cube *cube, char *map_fd);
 
 // main.c
-void	draw_player(t_cube *cube, unsigned int color, int draw_angle);
+void	draw_player(t_cube *cube);
 
 // utils.c
 void	free_array(char **array);

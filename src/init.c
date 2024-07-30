@@ -6,12 +6,14 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 12:49:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:10:21 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
+// Sets the players view angle according to the map
+// Also sets delta_x and delta_y
 void	set_angle(t_cube *cube, char direction)
 {
 	if (direction == 'n')
@@ -26,8 +28,7 @@ void	set_angle(t_cube *cube, char direction)
 	cube->player.delta_y = sin(cube->player.angle) * 5; // multiplying so the player moves faster
 }
 
-// Figure out how to extract angle
-// Call get_map, then init the player variables
+// Calls get_map, then init the player variables
 void	init(t_cube *cube, char *map_fd)
 {
 	int	x;

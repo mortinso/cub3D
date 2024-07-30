@@ -6,12 +6,13 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 12:51:12 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:52:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
+// Function for a clean exit
 int	destruct(t_cube *cube)
 {
 	if (cube->map.map)
@@ -33,7 +34,6 @@ void	move(t_cube *cube, int direction)
 {
 	if (direction != 1 && direction != -1)
 		return ;
-	draw_player(cube, (unsigned int)cube->textures.c_ceil, 0);
 	cube->player.x += (cube->player.delta_x * direction);
 	cube->player.y += (cube->player.delta_y * direction);
 	if (cube->player.x < 0 || cube->player.x >= SCREEN_W || cube->player.y < 0 \
@@ -42,7 +42,6 @@ void	move(t_cube *cube, int direction)
 		cube->player.x -= (cube->player.delta_x * direction);
 		cube->player.y -= (cube->player.delta_y * direction);
 	}
-	draw_player(cube, 0x00ff0000, 1);
 }
 
 // Function to change the players angle
@@ -52,7 +51,6 @@ void	pan(t_cube *cube, int angle)
 {
 	if (angle != 1 && angle != -1)
 		return ;
-	draw_player(cube, (unsigned int)cube->textures.c_ceil, 0);
 	cube->player.angle += (0.1 * angle);
 	if (angle == 1 && cube->player.angle > 2 * PI)
 		cube->player.angle -= 2 * PI;
@@ -60,9 +58,9 @@ void	pan(t_cube *cube, int angle)
 		cube->player.angle += 2 * PI;
 	cube->player.delta_x = cos(cube->player.angle) * 5; // multiplying so the player moves faster
 	cube->player.delta_y = sin(cube->player.angle) * 5; // multiplying so the player moves faster
-	draw_player(cube, 0x00ff0000, 1);
 }
 
+// Keypress handler
 int	keypress(int key, t_cube *cube)
 {
 	if (key == KEY_ESC)
