@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 16:19:27 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/27 13:04:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:52:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,4 @@ void	get_content(t_cube *cube, char *map_fd)
 	close(fd);
 	map_chars(cube);
 	map_closed(cube);
-
-	// Output map:
-	int i = 0;
-	ft_printf("Map:\n");
-	while (i < cube->map.size)
-		ft_printf("%s\n", cube->map.map[i++]);
 }

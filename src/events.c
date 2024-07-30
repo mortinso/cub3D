@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/29 17:00:31 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:51:12 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,34 @@ void	move(t_cube *cube, int direction)
 {
 	if (direction != 1 && direction != -1)
 		return ;
-	draw_player(cube, cube->player.x, cube->player.y, (unsigned int)cube->textures.c_ceil);
-	if (direction == 1)
+	draw_player(cube, (unsigned int)cube->textures.c_ceil, 0);
+	cube->player.x += (cube->player.delta_x * direction);
+	cube->player.y += (cube->player.delta_y * direction);
+	if (cube->player.x < 0 || cube->player.x >= SCREEN_W || cube->player.y < 0 \
+		|| cube->player.y >= SCREEN_H)
 	{
-		cube->player.x += cube->player.delta_x;
-		cube->player.y += cube->player.delta_y;
+		cube->player.x -= (cube->player.delta_x * direction);
+		cube->player.y -= (cube->player.delta_y * direction);
 	}
-	if (direction == -1)
-	{
-		cube->player.x -= cube->player.delta_x;
-		cube->player.y -= cube->player.delta_y;
-	}
-	draw_player(cube, cube->player.x, cube->player.y, 0x0000ff00);
+	draw_player(cube, 0x00ff0000, 1);
+}
+
+// Function to change the players angle
+// 1 = increase angle
+// -1 = decrease angle
+void	pan(t_cube *cube, int angle)
+{
+	if (angle != 1 && angle != -1)
+		return ;
+	draw_player(cube, (unsigned int)cube->textures.c_ceil, 0);
+	cube->player.angle += (0.1 * angle);
+	if (angle == 1 && cube->player.angle > 2 * PI)
+		cube->player.angle -= 2 * PI;
+	if (angle == -1 && cube->player.angle < 0)
+		cube->player.angle += 2 * PI;
+	cube->player.delta_x = cos(cube->player.angle) * 5; // multiplying so the player moves faster
+	cube->player.delta_y = sin(cube->player.angle) * 5; // multiplying so the player moves faster
+	draw_player(cube, 0x00ff0000, 1);
 }
 
 int	keypress(int key, t_cube *cube)
@@ -56,20 +72,8 @@ int	keypress(int key, t_cube *cube)
 	if (key == KEY_S)
 		move(cube, -1);
 	if (key == KEY_A)
-	{
-		cube->player.angle -= 0.1;
-		if (cube->player.angle < 0)
-			cube->player.angle += 2 * PI;
-		cube->player.delta_x = cos(cube->player.angle) * 5; // * 5 cause values are small
-		cube->player.delta_y = sin(cube->player.angle) * 5; // * 5 cause values are small
-	}
+		pan(cube, -1);
 	if (key == KEY_D)
-	{
-		cube->player.angle += 0.1;
-		if (cube->player.angle > 2 * PI)
-			cube->player.angle -= 2 * PI;
-		cube->player.delta_x = cos(cube->player.angle) * 5; // * 5 cause values are small
-		cube->player.delta_y = sin(cube->player.angle) * 5; // * 5 cause values are small
-	}
+		pan(cube, 1);
 	return (0);
 }

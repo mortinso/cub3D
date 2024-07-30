@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/29 16:59:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:49:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	set_angle(t_cube *cube, char direction)
 		cube->player.angle = PI / 2;
 	else if (direction == 'e')
 		cube->player.angle = PI * 2;
-	cube->player.delta_x = cos(cube->player.angle) * 5; // * 5 cause values are small
-	cube->player.delta_y = sin(cube->player.angle) * 5; // * 5 cause values are small
+	cube->player.delta_x = cos(cube->player.angle) * 5; // multiplying so the player moves faster
+	cube->player.delta_y = sin(cube->player.angle) * 5; // multiplying so the player moves faster
 }
 
 // Figure out how to extract angle
@@ -42,8 +42,8 @@ void	init(t_cube *cube, char *map_fd)
 		{
 			if (ft_strchr("nsew", cube->map.map[y][x]))
 			{
-				cube->player.x = (x * GRID_CELL) + ((GRID_CELL - PLAYER_SIZE) / 2);
-				cube->player.y = (y * GRID_CELL) + ((GRID_CELL - PLAYER_SIZE) / 2);
+				cube->player.x = (x * CELL) + ((CELL - P_SIZE) / 2);
+				cube->player.y = (y * CELL) + ((CELL - P_SIZE) / 2);
 				set_angle(cube, cube->map.map[y][x]);
 				return ;
 			}

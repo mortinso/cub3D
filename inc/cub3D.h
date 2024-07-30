@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/28 07:42:29 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:21:19 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define SCREEN_H 576
 
 //----------------------------------INCLUDES------------------------------------
+# include <stdio.h>
 // # include "../minilibx-linux/mlx.h" // For 42 pcs
 # include <mlx.h> // for my pc
 # include "../libft/inc/libft.h"
@@ -27,8 +28,8 @@
 # define PI 3.1415926535
 
 // v-------- 2Dview -------v
-# define GRID_CELL 32 //2D
-# define PLAYER_SIZE 8 //2D
+# define CELL 32 //2D
+# define P_SIZE 7 //2D
 
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
@@ -94,7 +95,7 @@ int		keypress(int key, t_cube *cube);
 void	init(t_cube *cube, char *map_fd);
 
 // main.c
-void	draw_player(t_cube *cube, int x, int y, unsigned int color);
+void	draw_player(t_cube *cube, unsigned int color, int draw_angle);
 
 // utils.c
 void	free_array(char **array);
