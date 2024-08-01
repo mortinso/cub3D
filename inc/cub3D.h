@@ -6,15 +6,15 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 14:13:12 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:58:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define SCREEN_W 1056
-# define SCREEN_H 576
+# define SCREEN_W 2560
+# define SCREEN_H 1440
 
 //----------------------------------INCLUDES------------------------------------
 # include <stdio.h>
@@ -28,8 +28,8 @@
 # define PI 3.1415926535
 
 // v-------- 2Dview -------v
-# define CELL 32 //2D
-# define P_SIZE 7 //2D
+# define CELL 64 //2D
+# define P_SIZE 15 //2D
 # define P_COLOR 0x00ff0000
 # define A_COLOR 0x00000000
 
