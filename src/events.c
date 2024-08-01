@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 13:52:33 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:12:19 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	move(t_cube *cube, int direction)
 		return ;
 	cube->player.x += (cube->player.delta_x * direction);
 	cube->player.y += (cube->player.delta_y * direction);
-	if (cube->player.x < 0 || cube->player.x >= SCREEN_W || cube->player.y < 0 \
-		|| cube->player.y >= SCREEN_H)
+	if (cube->map.map[(int)cube->player.y / CELL][(int)cube->player.x / CELL] \
+		== '1')
 	{
 		cube->player.x -= (cube->player.delta_x * direction);
 		cube->player.y -= (cube->player.delta_y * direction);
