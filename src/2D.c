@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/01 17:16:11 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:18:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,42 @@ void	draw_cell(t_cube *cube, int x, int y, unsigned int color)
 	}
 }
 
+// Draws a line representing an angle
+void	draw_angle(t_cube *cube, float delt_x, float delt_y, unsigned int color)
+{
+	float	temp_x;
+	float	temp_y;
+
+	temp_x = cube->player.x + delt_x;
+	temp_y = cube->player.y + delt_y;
+	while (cube->map.map[(int)temp_y / CELL][(int)temp_x / CELL] != '1')
+	{
+		mlx_pixel_put(cube->mlx, cube->window, temp_x, temp_y, color);
+		temp_x += (delt_x / 5); // Dividing back down so the line is congruent
+		temp_y += (delt_y / 5); // Dividing back down so the line is congruent
+	}
+}
+
+// 2D representation of the users FOV, curretly thinking of using a 90º FOV
+void	draw_fov(t_cube *cube)
+{
+	float	temp_angle;
+
+	draw_angle(cube, cube->player.delta_x, cube->player.delta_y, 0x00ffff00);
+	temp_angle = cube->player.angle + 0.01;
+	while (temp_angle < (cube->player.angle + (PI / 4)))
+	{
+		draw_angle(cube, cos(temp_angle) * 5, sin(temp_angle) * 5, 0x0000ff00);
+		temp_angle += 0.01;
+	}
+	temp_angle = cube->player.angle - 0.01;
+	while (temp_angle > (cube->player.angle - (PI / 4)))
+	{
+		draw_angle(cube, cos(temp_angle) * 5, sin(temp_angle) * 5, 0x0000ff00);
+		temp_angle -= 0.01;
+	}
+}
+
 // Draws the player and a representation of its view angle on the window
 void	draw_player(t_cube *cube)
 {
@@ -68,16 +104,7 @@ void	draw_player(t_cube *cube)
 			mlx_pixel_put(cube->mlx, cube->window, temp_x++, temp_y, P_COLOR);
 		temp_y++;
 	}
-	temp_y = cube->player.y + cube->player.delta_y;
-	temp_x = cube->player.x + cube->player.delta_x;
-	while (temp_x > 0 && temp_y > 0 && (temp_x < SCREEN_W - 1) && (temp_y < SCREEN_H - 1))
-	{
-		if (cube->map.map[(int)temp_y / CELL][(int)temp_x / CELL] == '1')
-			break;
-		mlx_pixel_put(cube->mlx, cube->window, temp_x, temp_y, A_COLOR);
-		temp_x += (cube->player.delta_x / 5); // Dividing for the multiplied value so the line is congruent
-		temp_y += (cube->player.delta_y / 5); // Dividing for the multiplied value so the line is congruent
-	}
+	draw_fov(cube);
 }
 
 // Draws the map
@@ -89,7 +116,6 @@ void	draw_frame(t_cube *cube)
 	cube->screen.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
 	cube->screen.addr = mlx_get_data_addr(cube->screen.img, &cube->screen.bpp, \
 		&cube->screen.length, &cube->screen.endian);
-
 	y = 0;
 	while (cube->map.map[y])
 	{

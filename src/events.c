@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/01 17:12:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:38:06 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	pan(t_cube *cube, int angle)
 		cube->player.angle -= 2 * PI;
 	if (angle == -1 && cube->player.angle < 0)
 		cube->player.angle += 2 * PI;
-	cube->player.delta_x = cos(cube->player.angle) * 5; // multiplying so the player moves faster
-	cube->player.delta_y = sin(cube->player.angle) * 5; // multiplying so the player moves faster
+	cube->player.delta_x = cos(cube->player.angle) * 5; // *5 to move faster
+	cube->player.delta_y = sin(cube->player.angle) * 5; // *5 to move faster
 }
 
 // Keypress handler
