@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/01 16:58:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:16:30 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define CELL 64 //2D
 # define P_SIZE 15 //2D
 # define P_COLOR 0x00ff0000
-# define A_COLOR 0x00000000
+# define A_COLOR 0x00ffff00
 
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307

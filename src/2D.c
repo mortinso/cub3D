@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/07/30 14:13:27 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:16:11 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	draw_player(t_cube *cube)
 	temp_x = cube->player.x + cube->player.delta_x;
 	while (temp_x > 0 && temp_y > 0 && (temp_x < SCREEN_W - 1) && (temp_y < SCREEN_H - 1))
 	{
+		if (cube->map.map[(int)temp_y / CELL][(int)temp_x / CELL] == '1')
+			break;
 		mlx_pixel_put(cube->mlx, cube->window, temp_x, temp_y, A_COLOR);
 		temp_x += (cube->player.delta_x / 5); // Dividing for the multiplied value so the line is congruent
 		temp_y += (cube->player.delta_y / 5); // Dividing for the multiplied value so the line is congruent
