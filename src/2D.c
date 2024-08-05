@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/01 19:18:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/05 19:13:24 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,23 @@ void	draw_angle(t_cube *cube, float delt_x, float delt_y, unsigned int color)
 	while (cube->map.map[(int)temp_y / CELL][(int)temp_x / CELL] != '1')
 	{
 		mlx_pixel_put(cube->mlx, cube->window, temp_x, temp_y, color);
-		temp_x += (delt_x / 5); // Dividing back down so the line is congruent
-		temp_y += (delt_y / 5); // Dividing back down so the line is congruent
+		temp_x += delt_x;
+		temp_y += delt_y;
 	}
 }
 
-// 2D representation of the users FOV, curretly thinking of using a 90º FOV
+// 2D representation of the users FOV
 void	draw_fov(t_cube *cube)
 {
 	float	temp_angle;
 
+	temp_angle = cube->player.angle - RAD_DEGREE * (FOV / 2);
+	while (temp_angle < (cube->player.angle + RAD_DEGREE * (FOV / 2)))
+	{
+		draw_angle(cube, cos(temp_angle) * 5, sin(temp_angle) * 5, 0x0000ff00);
+		temp_angle += RAD_DEGREE;
+	}
 	draw_angle(cube, cube->player.delta_x, cube->player.delta_y, 0x00ffff00);
-	temp_angle = cube->player.angle + 0.01;
-	while (temp_angle < (cube->player.angle + (PI / 4)))
-	{
-		draw_angle(cube, cos(temp_angle) * 5, sin(temp_angle) * 5, 0x0000ff00);
-		temp_angle += 0.01;
-	}
-	temp_angle = cube->player.angle - 0.01;
-	while (temp_angle > (cube->player.angle - (PI / 4)))
-	{
-		draw_angle(cube, cos(temp_angle) * 5, sin(temp_angle) * 5, 0x0000ff00);
-		temp_angle -= 0.01;
-	}
 }
 
 // Draws the player and a representation of its view angle on the window

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/01 17:16:30 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:57:51 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <math.h>
 
 # define PI 3.1415926535
+# define RAD_DEGREE 0.0174533
+# define FOV 60
 
 // v-------- 2Dview -------v
 # define CELL 64 //2D
