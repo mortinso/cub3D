@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 18:21:02 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/06 20:31:47 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	get_media(t_cube *cube, char *map_fd)
 // the function to check that the map is valid (function is yet to be created)
 void	get_map(t_cube *cube, char *map_fd)
 {
-	// V-- This should probably be moved to a different function --V
 	cube->map.map = NULL;
 	cube->textures.c_ceil = -1;
 	cube->textures.c_floor = -1;

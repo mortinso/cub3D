@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/06/28 17:26:03 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/06 21:33:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
+// Function for a clean exit
 int	destruct(t_cube *cube)
 {
 	if (cube->map.map)
@@ -26,9 +27,51 @@ int	destruct(t_cube *cube)
 	return (0);
 }
 
+// Function to move
+// 1 = forward
+// -1 = backwards
+void	move(t_cube *cube, int direction)
+{
+	if (direction != 1 && direction != -1)
+		return ;
+	cube->player.x += (cube->player.delta_x * direction);
+	cube->player.y += (cube->player.delta_y * direction);
+	if (cube->map.map[(int)cube->player.y / CELL][(int)cube->player.x / CELL] \
+		== '1')
+	{
+		cube->player.x -= (cube->player.delta_x * direction);
+		cube->player.y -= (cube->player.delta_y * direction);
+	}
+}
+
+// Function to change the players angle
+// 1 = increase angle
+// -1 = decrease angle
+void	pan(t_cube *cube, int angle)
+{
+	if (angle != 1 && angle != -1)
+		return ;
+	cube->player.angle += (0.1 * angle);
+	if (angle == 1 && cube->player.angle >= 2 * PI)
+		cube->player.angle -= 2 * PI;
+	if (angle == -1 && cube->player.angle < 0)
+		cube->player.angle += 2 * PI;
+	cube->player.delta_x = cos(cube->player.angle) * 5; // *5 to move faster
+	cube->player.delta_y = sin(cube->player.angle) * 5; // *5 to move faster
+}
+
+// Keypress handler
 int	keypress(int key, t_cube *cube)
 {
 	if (key == KEY_ESC)
 		destruct(cube);
+	if (key == KEY_W)
+		move(cube, 1);
+	if (key == KEY_S)
+		move(cube, -1);
+	if (key == KEY_A)
+		pan(cube, -1);
+	if (key == KEY_D)
+		pan(cube, 1);
 	return (0);
 }
