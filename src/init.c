@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 21:08:05 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/06 21:17:46 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	set_angle(t_cube *cube, char direction)
 {
 	if (direction == 'n')
-		cube->player.angle = 3*PI/2;
+		cube->player.angle = PI * 1.5;
 	else if (direction == 'w')
 		cube->player.angle = PI;
 	else if (direction == 's')

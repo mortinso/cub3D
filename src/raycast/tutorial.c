@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:13:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 21:12:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/06 21:43:09 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,28 @@ void	drawRays3D(t_cube *cube)
 	float	horiz_x;
 	float	horiz_y;
 	float	angle_tan = -1/tan(ray_angle);
-	if (ray_angle > PI) // looking down
+	if (ray_angle > PI) // looking up
 	{
 		horiz_y = (((int)cube->player.y >> 6) << 6) - 0.0001;
 		horiz_x = (cube->player.y - horiz_y) * angle_tan + cube->player.x;
 		y_offset = -64;
 		x_offset = -y_offset * angle_tan;
+		printf("up\n");
 	}
-	else if (ray_angle < PI) // looking up
+	else if (ray_angle < PI) // looking down
 	{
 		horiz_y = (((int)cube->player.y >> 6) << 6) + 64;
 		horiz_x = (cube->player.y - horiz_y) * angle_tan + cube->player.x;
 		y_offset = 64;
 		x_offset = -y_offset * angle_tan;
+		printf("down\n");
 	}
-	else if (ray_angle == 0 || ray_angle == PI) // looking left or right
+	else // looking left or rightprintf("( %f , %f )\n", vert_x / CELL, vert_y / CELL);
 	{
-		horiz_x = cube->player.x;
-		horiz_y = cube->player.y;
+		horiz_x = cube->player.x + 0;
+		horiz_y = cube->player.y + 0;
 		y_offset = 0;
+		printf("left/right\n");
 	}
 	while (y_offset != 0 && cube->map.map[(int)horiz_y / CELL][(int)horiz_x / CELL])
 	{
@@ -69,8 +72,15 @@ void	drawRays3D(t_cube *cube)
 	float	vert_x;
 	float	vert_y;
 	float	neg_tan = -tan(ray_angle);
-	printf("%f\n %f\n", ray_angle, 3*PI/2);
-	if (ray_angle > PI/2 && ray_angle < 3*PI/2) // looking left
+	if (ray_angle > PI/2 && ray_angle < PI * 1.5 - 0.000001) // looking left
+	{
+		vert_x = (((int)cube->player.x >> 6) << 6) + 64;
+		vert_y = (cube->player.x - vert_x) * neg_tan + cube->player.y;
+		x_offset = 64;
+		y_offset = -x_offset * neg_tan;
+		printf("right\n");
+	}
+	else if (ray_angle < PI/2 || ray_angle > PI * 1.5 + 0.000001) // looking right
 	{
 		vert_x = (((int)cube->player.x >> 6) << 6) - 0.0001;
 		vert_y = (cube->player.x - vert_x) * neg_tan + cube->player.y;
@@ -78,24 +88,15 @@ void	drawRays3D(t_cube *cube)
 		y_offset = -x_offset * neg_tan;
 		printf("left\n");
 	}
-	else if (ray_angle < PI/2 || ray_angle > 3*PI/2) // looking right
+	else // looking up or down
 	{
-		vert_x = (((int)cube->player.x >> 6) << 6) + 64;
-		vert_y = (cube->player.x - vert_x) * neg_tan + cube->player.y;
-		x_offset = 64;
-		y_offset = -x_offset * neg_tan;
-		printf("%f\n %f\n", ray_angle, PI/2);
-		printf("right\n");
-	}
-	else if (ray_angle == PI/2 || ray_angle == 3*PI/2) // looking up or down
-	{
-		vert_x = cube->player.x;
-		vert_y = cube->player.y;
+		vert_x = cube->player.x + 0;
+		vert_y = cube->player.y + 0;
 		x_offset = 0;
 		printf("up/down\n");
 	}
-	printf("( %f , %f )\n", vert_x / 64, vert_y / 64);
-	destruct(cube);
+	printf("( %f , %f )\n", vert_x / CELL, vert_y / CELL);
+	printf("( %i , %i )\n\n", (int)vert_x / CELL, (int)vert_y / CELL);
 	while (x_offset != 0 && cube->map.map[(int)vert_y / CELL][(int)vert_x / CELL])
 	{
 		if (cube->map.map[(int)vert_y >> 6][(int)vert_x >> 6] == '1')

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:31:58 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/06 21:33:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	pan(t_cube *cube, int angle)
 	if (angle != 1 && angle != -1)
 		return ;
 	cube->player.angle += (0.1 * angle);
-	if (angle == 1 && cube->player.angle > 2 * PI)
+	if (angle == 1 && cube->player.angle >= 2 * PI)
 		cube->player.angle -= 2 * PI;
 	if (angle == -1 && cube->player.angle < 0)
 		cube->player.angle += 2 * PI;
