@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:32:01 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/06 21:08:05 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	set_angle(t_cube *cube, char direction)
 {
 	if (direction == 'n')
-		cube->player.angle = PI * 1.5;
+		cube->player.angle = 3*PI/2;
 	else if (direction == 'w')
 		cube->player.angle = PI;
 	else if (direction == 's')
@@ -43,8 +43,8 @@ void	init(t_cube *cube, char *map_fd)
 		{
 			if (ft_strchr("nsew", cube->map.map[y][x]))
 			{
-				cube->player.x = (x * CELL) + ((CELL - P_SIZE) / 2);
-				cube->player.y = (y * CELL) + ((CELL - P_SIZE) / 2);
+				cube->player.x = x * CELL;
+				cube->player.y = y * CELL;
 				set_angle(cube, cube->map.map[y][x]);
 				return ;
 			}

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:32:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/06 20:36:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	draw_player(t_cube *cube)
 			mlx_pixel_put(cube->mlx, cube->window, temp_x++, temp_y, P_COLOR);
 		temp_y++;
 	}
-	draw_fov(cube);
+	// draw_fov(cube);
+	drawRays3D(cube);
 }
 
 // Draws the map
