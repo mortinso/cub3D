@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:06:04 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:45:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,9 @@ void	draw_fov(t_cube *cube)
 	{
 		ray.x = ray.x * cos(-1 * RAD_DEGREE) - ray.y * sin(-1 * RAD_DEGREE);
 		ray.y = tmp_x * sin(-1 * RAD_DEGREE) + ray.y * cos(-1 * RAD_DEGREE);
-		draw_angle(cube, ray, 0x0000ff00);
 	}
-	ray.x = cube->player.dir.x;
-	ray.y = cube->player.dir.y;
-	while (counter-- > 0)
+	counter = 0;
+	while (counter++ < FOV)
 	{
 		ray.x = ray.x * cos(1 * RAD_DEGREE) - ray.y * sin(1 * RAD_DEGREE);
 		ray.y = tmp_x * sin(1 * RAD_DEGREE) + ray.y * cos(1 * RAD_DEGREE);
