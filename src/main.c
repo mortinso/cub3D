@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:32:03 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:47:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 int	render_frame(t_cube *cube)
 {
 	mlx_put_image_to_window(cube->mlx, cube->window, cube->screen.img, 0, 0);
-	draw_player(cube);
+	draw_square(cube, P_SIZE, cube->player.pos, P_COLOR);
+	draw_fov(cube);
 	return (0);
 }
 
@@ -45,7 +46,6 @@ int	main(int argc, char **argv)
 		exit (1);
 	}
 	init(&cube, argv[1]);
-	draw_frame(&cube);
 	cube.window = mlx_new_window(cube.mlx, SCREEN_W, SCREEN_H, "cub3D");
 	if (!cube.window)
 	{

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:32:12 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:46:24 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define PI 3.1415926535
 # define RAD_DEGREE 0.0174533
-# define FOV 60
+# define FOV 90
 
 // v-------- 2Dview -------v
 # define CELL 64 //2D
@@ -64,13 +64,16 @@ typedef struct s_textures
 	int		c_floor;
 }	t_textures;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	angle;
-	float	delta_x;
-	float	delta_y;
+	t_vector	pos;
+	t_vector	dir;
 }	t_player;
 
 typedef struct s_map
@@ -93,7 +96,8 @@ typedef struct s_cube
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // 2D.c
 void	draw_frame(t_cube *cube);
-void	draw_player(t_cube *cube);
+void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color);
+void	draw_fov(t_cube *cube);
 
 // events.c
 int		destruct(t_cube *cube);
@@ -106,6 +110,7 @@ void	init(t_cube *cube, char *map_fd);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 // utils.c
+size_t	array_size(char **array);
 void	free_array(char **array);
 int		is_all_digit(const char *str);
 

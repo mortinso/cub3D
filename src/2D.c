@@ -6,11 +6,18 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:36:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:06:04 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
+
+/* Saved just in case
+float	distance(t_player *player, float hypo_x, float hypo_y)
+{
+	return (sqrt((player->x - hypo_x) * (player->x - hypo_x) + \
+		(player->y - hypo_y) * (player->y - hypo_y)));
+} */
 
 // Copies an image, pixel by pixel, to `cube->screen`
 void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y)
@@ -35,7 +42,7 @@ void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y)
 	}
 }
 
-// Draws a cell on cube->screen of color color
+// Draws a cell on cube->screen of size CELL and color color
 void	draw_cell(t_cube *cube, int x, int y, unsigned int color)
 {
 	int	temp_x;
@@ -54,52 +61,65 @@ void	draw_cell(t_cube *cube, int x, int y, unsigned int color)
 	}
 }
 
-// Draws a line representing an angle
-void	draw_angle(t_cube *cube, float delt_x, float delt_y, unsigned int color)
+// Draws a square where the angle collides with a wall
+void	draw_angle(t_cube *cube, t_vector delta, unsigned int color)
 {
-	float	temp_x;
-	float	temp_y;
+	t_vector	temp;
 
-	temp_x = cube->player.x + delt_x;
-	temp_y = cube->player.y + delt_y;
-	while (cube->map.map[(int)temp_y / CELL][(int)temp_x / CELL] != '1')
+	temp.x = cube->player.pos.x + delta.x;
+	temp.y = cube->player.pos.y + delta.y;
+	while (cube->map.map[(int)temp.y / CELL][(int)temp.x / CELL] != '1')
 	{
-		mlx_pixel_put(cube->mlx, cube->window, temp_x, temp_y, color);
-		temp_x += delt_x;
-		temp_y += delt_y;
+		temp.x += delta.x;
+		temp.y += delta.y;
 	}
+	temp.x -= delta.x;
+	temp.y -= delta.y;
+	draw_square(cube, 6, temp, color);
 }
 
 // 2D representation of the users FOV
 void	draw_fov(t_cube *cube)
 {
-	float	temp_angle;
+	t_vector	ray;
+	double		tmp_x;
+	int			counter;
 
-	temp_angle = cube->player.angle - RAD_DEGREE * (FOV / 2);
-	while (temp_angle < (cube->player.angle + RAD_DEGREE * (FOV / 2)))
+	counter = 0;
+	tmp_x = cube->player.dir.x;
+	ray.x = cube->player.dir.x;
+	ray.y = cube->player.dir.y;
+	while (counter++ <= FOV / 2)
 	{
-		draw_angle(cube, cos(temp_angle) * 5, sin(temp_angle) * 5, 0x0000ff00);
-		temp_angle += RAD_DEGREE;
+		ray.x = ray.x * cos(-1 * RAD_DEGREE) - ray.y * sin(-1 * RAD_DEGREE);
+		ray.y = tmp_x * sin(-1 * RAD_DEGREE) + ray.y * cos(-1 * RAD_DEGREE);
+		draw_angle(cube, ray, 0x0000ff00);
 	}
-	draw_angle(cube, cube->player.delta_x, cube->player.delta_y, 0x00ffff00);
+	ray.x = cube->player.dir.x;
+	ray.y = cube->player.dir.y;
+	while (counter-- > 0)
+	{
+		ray.x = ray.x * cos(1 * RAD_DEGREE) - ray.y * sin(1 * RAD_DEGREE);
+		ray.y = tmp_x * sin(1 * RAD_DEGREE) + ray.y * cos(1 * RAD_DEGREE);
+		draw_angle(cube, ray, 0x0000ff00);
+	}
+	draw_angle(cube, cube->player.dir, 0x00ffff00);
 }
 
-// Draws the player and a representation of its view angle on the window
-void	draw_player(t_cube *cube)
+// Draws a square
+void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color)
 {
-	float	temp_x;
-	float	temp_y;
+	double	temp_x;
+	double	temp_y;
 
-	temp_y = cube->player.y - (P_SIZE / 2);
-	while (temp_y < (cube->player.y + (P_SIZE / 2)))
+	temp_y = vect.y - (side / 2);
+	while (temp_y < (vect.y + (side / 2)))
 	{
-		temp_x = cube->player.x - (P_SIZE / 2);
-		while (temp_x < (cube->player.x + (P_SIZE / 2)))
-			mlx_pixel_put(cube->mlx, cube->window, temp_x++, temp_y, P_COLOR);
+		temp_x = vect.x - (side / 2);
+		while (temp_x < (vect.x + (side / 2)))
+			mlx_pixel_put(cube->mlx, cube->window, temp_x++, temp_y, color);
 		temp_y++;
 	}
-	// draw_fov(cube);
-	drawRays3D(cube);
 }
 
 // Draws the map

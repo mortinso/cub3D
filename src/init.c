@@ -6,26 +6,35 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 21:17:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:56:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
 // Sets the players view angle according to the map
-// Also sets delta_x and delta_y
 void	set_angle(t_cube *cube, char direction)
 {
 	if (direction == 'n')
-		cube->player.angle = PI * 1.5;
-	else if (direction == 'w')
-		cube->player.angle = PI;
+	{
+		cube->player.dir.x = 0;
+		cube->player.dir.y = -1;
+	}
 	else if (direction == 's')
-		cube->player.angle = PI / 2;
+	{
+		cube->player.dir.x = 0;
+		cube->player.dir.y = 1;
+	}
 	else if (direction == 'e')
-		cube->player.angle = PI * 2;
-	cube->player.delta_x = cos(cube->player.angle) * 5; // *5 to move faster
-	cube->player.delta_y = sin(cube->player.angle) * 5; // *5 to move faster
+	{
+		cube->player.dir.x = 1;
+		cube->player.dir.y = 0;
+	}
+	else if (direction == 'w')
+	{
+		cube->player.dir.x = -1;
+		cube->player.dir.y = 0;
+	}
 }
 
 // Calls get_map, then init the player variables
@@ -43,14 +52,14 @@ void	init(t_cube *cube, char *map_fd)
 		{
 			if (ft_strchr("nsew", cube->map.map[y][x]))
 			{
-				cube->player.x = x * CELL;
-				cube->player.y = y * CELL;
+				cube->player.pos.x = x * CELL;
+				cube->player.pos.y = y * CELL;
 				set_angle(cube, cube->map.map[y][x]);
+				draw_frame(cube);
 				return ;
 			}
 			x++;
 		}
 		y++;
 	}
-// Should the first frame be drawn here?
 }
