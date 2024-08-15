@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:47:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:05:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
 typedef struct s_textures
 {
 	t_img	north;
@@ -64,11 +70,16 @@ typedef struct s_textures
 	int		c_floor;
 }	t_textures;
 
-typedef struct s_vector
+typedef struct s_raycast
 {
-	double	x;
-	double	y;
-}	t_vector;
+	t_vector	line_dist;
+	t_vector	delta_dist;
+	int			step_x;
+	int			step_y;
+	int			map_x;
+	int			map_y;
+	double		wall_dist;
+}	t_raycast;
 
 typedef struct s_player
 {
@@ -89,6 +100,7 @@ typedef struct s_cube
 	t_map		map;
 	t_textures	textures;
 	t_img		screen;
+	t_raycast	raycast;
 	t_player	player;
 }	t_cube;
 
@@ -108,6 +120,9 @@ void	init(t_cube *cube, char *map_fd);
 
 // main.c
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+
+// raycasting.c
+void	raycasting(t_cube *cube, t_vector dir);
 
 // utils.c
 size_t	array_size(char **array);
@@ -134,7 +149,4 @@ int		is_texture_identifier(const char *line);
 void	purge_textures(t_cube *cube);
 void	set_texture(t_cube *cube, int fd, char *line);
 
-// +++++++++++++++ raycast/[.....] ++++++++++++++++++++++++++++++++++++++++++++
-// tutorial.c
-void	drawRays3D(t_cube *cube);
 #endif
