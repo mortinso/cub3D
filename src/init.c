@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/14 19:56:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:23:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void	init(t_cube *cube, char *map_fd)
 				cube->player.pos.y = y * CELL;
 				set_angle(cube, cube->map.map[y][x]);
 				draw_frame(cube);
+				cube->game.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
+				cube->game.addr = mlx_get_data_addr(cube->game.img, \
+					&cube->game.bpp, &cube->game.length, &cube->game.endian);
 				return ;
 			}
 			x++;

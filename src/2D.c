@@ -6,18 +6,11 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:45:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:39:23 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
-
-/* Saved just in case
-float	distance(t_player *player, float hypo_x, float hypo_y)
-{
-	return (sqrt((player->x - hypo_x) * (player->x - hypo_x) + \
-		(player->y - hypo_y) * (player->y - hypo_y)));
-} */
 
 // Copies an image, pixel by pixel, to `cube->screen`
 void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y)
@@ -34,7 +27,9 @@ void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y)
 		{
 			color = texture->addr + (img_y * texture->length + img_x * \
 				(texture->bpp / 8));
-			my_mlx_pixel_put(&cube->screen, screen_x + img_x, screen_y \
+			// my_mlx_pixel_put(&cube->window_2, screen_x + img_x, screen_y \
+			// 	+ img_y, *(unsigned int *)color);
+			my_mlx_pixel_put(&cube->minimap, screen_x + img_x, screen_y \
 				+ img_y, *(unsigned int *)color);
 			img_x++;
 		}
@@ -54,7 +49,7 @@ void	draw_cell(t_cube *cube, int x, int y, unsigned int color)
 		temp_x = 0;
 		while (temp_x < CELL)
 		{
-			my_mlx_pixel_put(&cube->screen, x + temp_x, y + temp_y, color);
+			my_mlx_pixel_put(&cube->minimap, x + temp_x, y + temp_y, color);
 			temp_x++;
 		}
 		temp_y++;
@@ -91,14 +86,14 @@ void	draw_fov(t_cube *cube)
 	ray.y = cube->player.dir.y;
 	while (counter++ <= FOV / 2)
 	{
-		ray.x = ray.x * cos(-1 * RAD_DEGREE) - ray.y * sin(-1 * RAD_DEGREE);
-		ray.y = tmp_x * sin(-1 * RAD_DEGREE) + ray.y * cos(-1 * RAD_DEGREE);
+		ray.x = ray.x * cos(-RAD_DEGREE) - ray.y * sin(-RAD_DEGREE);
+		ray.y = tmp_x * sin(-RAD_DEGREE) + ray.y * cos(-RAD_DEGREE);
 	}
 	counter = 0;
 	while (counter++ < FOV)
 	{
-		ray.x = ray.x * cos(1 * RAD_DEGREE) - ray.y * sin(1 * RAD_DEGREE);
-		ray.y = tmp_x * sin(1 * RAD_DEGREE) + ray.y * cos(1 * RAD_DEGREE);
+		ray.x = ray.x * cos(RAD_DEGREE) - ray.y * sin(RAD_DEGREE);
+		ray.y = tmp_x * sin(RAD_DEGREE) + ray.y * cos(RAD_DEGREE);
 		draw_angle(cube, ray, 0x0000ff00);
 	}
 	draw_angle(cube, cube->player.dir, 0x00ffff00);
@@ -115,7 +110,7 @@ void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color)
 	{
 		temp_x = vect.x - (side / 2);
 		while (temp_x < (vect.x + (side / 2)))
-			mlx_pixel_put(cube->mlx, cube->window, temp_x++, temp_y, color);
+			my_mlx_pixel_put(&cube->minimap, temp_x++, temp_y, color);
 		temp_y++;
 	}
 }
@@ -126,9 +121,9 @@ void	draw_frame(t_cube *cube)
 	int	x;
 	int	y;
 
-	cube->screen.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
-	cube->screen.addr = mlx_get_data_addr(cube->screen.img, &cube->screen.bpp, \
-		&cube->screen.length, &cube->screen.endian);
+	cube->minimap.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
+	cube->minimap.addr = mlx_get_data_addr(cube->minimap.img, \
+		&cube->minimap.bpp, &cube->minimap.length, &cube->minimap.endian);
 	y = 0;
 	while (cube->map.map[y])
 	{

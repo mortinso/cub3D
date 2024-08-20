@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/15 18:05:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:23:11 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define PI 3.1415926535
 # define RAD_DEGREE 0.0174533
-# define FOV 61
+# define FOV 90
 # define CELL 64 //2D
 
 // v-------- 2Dview -------v
@@ -78,7 +78,9 @@ typedef struct s_raycast
 	int			step_y;
 	int			map_x;
 	int			map_y;
+	int			orientation;
 	double		wall_dist;
+	int			screen_x;
 }	t_raycast;
 
 typedef struct s_player
@@ -96,10 +98,12 @@ typedef struct s_map
 typedef struct s_cube
 {
 	void		*mlx;
-	void		*window;
+	void		*game_window;
+	void		*window_2;
 	t_map		map;
 	t_textures	textures;
-	t_img		screen;
+	t_img		game;
+	t_img		minimap;
 	t_raycast	raycast;
 	t_player	player;
 }	t_cube;
@@ -109,6 +113,7 @@ typedef struct s_cube
 // 2D.c
 void	draw_frame(t_cube *cube);
 void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color);
+void	draw_angle(t_cube *cube, t_vector delta, unsigned int color);
 void	draw_fov(t_cube *cube);
 
 // events.c
