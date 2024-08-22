@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  norminette:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 42 Norminette
+        uses: alexandregv/norminette-action@v3
+            
