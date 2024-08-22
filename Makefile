@@ -9,7 +9,7 @@ OBJ_DIR = .obj
 LFT_DIR = libft
 
 MAP_SRC = map.c colors.c textures.c content.c content_check.c
-SRC_FILES = main.c events.c utils.c init.c 2D.c $(addprefix map/, $(MAP_SRC)) raycast/tutorial.c
+SRC_FILES = main.c events.c utils.c init.c minimap.c $(addprefix map/, $(MAP_SRC))
 INC_FILES = cub3D.h
 
 LIB = -L minilibx-linux -lmlx -lXext -lX11 -lm
