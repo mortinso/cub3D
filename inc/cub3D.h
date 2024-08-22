@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 16:34:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:41:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_cube
 
 //------------------------------------SRCS--------------------------------------
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
-// 2D.c
+// minimap.c
 void	draw_frame(t_cube *cube);
 void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color);
 void	draw_fov(t_cube *cube);
