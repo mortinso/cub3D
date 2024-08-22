@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 16:35:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:52:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	destruct(t_cube *cube)
 // Function to move (*5 to move faster)
 // 1 = forward
 // -1 = backwards
-void	move(t_cube *cube, int direction)
+void	move_straight(t_cube *cube, int direction)
 {
 	t_vector	tmp;
 
@@ -64,9 +64,9 @@ int	keypress(int key, t_cube *cube)
 	if (key == KEY_ESC)
 		destruct(cube);
 	if (key == KEY_W)
-		move(cube, 1);
+		move_straight(cube, 1);
 	if (key == KEY_S)
-		move(cube, -1);
+		move_straight(cube, -1);
 	/* if (key == KEY_A)
 		move to the right
 	if (key == KEY_D)

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 16:41:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:52:10 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,4 @@ int		is_texture_identifier(const char *line);
 void	purge_textures(t_cube *cube);
 void	set_texture(t_cube *cube, int fd, char *line);
 
-// +++++++++++++++ raycast/[.....] ++++++++++++++++++++++++++++++++++++++++++++
-// tutorial.c
-void	drawRays3D(t_cube *cube);
 #endif
