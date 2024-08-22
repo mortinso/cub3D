@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/14 19:46:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:34:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_ARROW_LEFT 65361
+# define KEY_ARROW_RIGHT 65363
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_img

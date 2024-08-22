@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:01:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:35:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,13 @@ int	keypress(int key, t_cube *cube)
 		move(cube, 1);
 	if (key == KEY_S)
 		move(cube, -1);
-	if (key == KEY_A)
-		pan(cube, -1);
+	/* if (key == KEY_A)
+		move to the right
 	if (key == KEY_D)
+		move to the left */
+	if (key == KEY_ARROW_RIGHT)
 		pan(cube, 1);
+	if (key == KEY_ARROW_LEFT)
+		pan(cube, -1);
 	return (0);
 }
