@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/20 18:23:11 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:57:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_ARROW_LEFT 65361
+# define KEY_ARROW_RIGHT 65363
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_img
@@ -110,8 +112,9 @@ typedef struct s_cube
 
 //------------------------------------SRCS--------------------------------------
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
-// 2D.c
-void	draw_frame(t_cube *cube);
+// minimap.c
+void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y);
+void	draw_cell(t_cube *cube, int x, int y, unsigned int color);
 void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color);
 void	draw_angle(t_cube *cube, t_vector delta, unsigned int color);
 void	draw_fov(t_cube *cube);
