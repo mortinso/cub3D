@@ -1,3 +1,5 @@
+name: norminette
+
 on:
   push:
     branches:
@@ -9,7 +11,8 @@ on:
 jobs:
   norminette:
     runs-on: ubuntu-latest
+    name: 42 Norminette v3
     steps:
-      - name: 42 Norminette
-        uses: alexandregv/norminette-action@v3
+      - uses: actions/checkout@v2
+      - uses: alexandregv/norminette-action@v3
             
