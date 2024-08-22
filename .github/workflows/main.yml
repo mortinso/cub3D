@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 42 Norminette
-        uses: alexandregv/norminette-action@v3.3.55
+        uses: alexandregv/norminette-action@v3
             
