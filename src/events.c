@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:58:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:29:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	destruct(t_cube *cube)
 	if (cube->map.map)
 		free_array(cube->map.map);
 	purge_textures(cube);
-	mlx_destroy_image(cube->mlx, cube->minimap.img);
-	mlx_clear_window(cube->mlx, cube->window_2);
-	mlx_destroy_window(cube->mlx, cube->window_2);
+	// mlx_destroy_image(cube->mlx, cube->minimap.img);
+	// mlx_clear_window(cube->mlx, cube->window_2);
+	// mlx_destroy_window(cube->mlx, cube->window_2);
 	mlx_destroy_image(cube->mlx, cube->game.img);
 	mlx_clear_window(cube->mlx, cube->game_window);
 	mlx_destroy_window(cube->mlx, cube->game_window);
@@ -45,6 +45,7 @@ void	move_straight(t_cube *cube, int direction)
 		return ;
 	cube->player.pos.x = tmp.x;
 	cube->player.pos.y = tmp.y;
+	raycasting(cube, cube->player.dir);
 }
 
 // Function to move sideways (*5 to move faster)
@@ -67,6 +68,7 @@ void	move_sideways(t_cube *cube, int direction)
 		return ;
 	cube->player.pos.x = tmp_pos.x;
 	cube->player.pos.y = tmp_pos.y;
+	raycasting(cube, cube->player.dir);
 }
 
 // Function to change the players angle (*5 to pan faster)
@@ -81,6 +83,7 @@ void	pan(t_cube *cube, int angle)
 		cube->player.dir.y * sin(angle * (RAD_DEGREE * 2));
 	cube->player.dir.y = tmp_x * sin(angle * (RAD_DEGREE * 2)) + \
 		cube->player.dir.y * cos(angle * (RAD_DEGREE * 2));
+	raycasting(cube, cube->player.dir);
 }
 
 // Keypress handler

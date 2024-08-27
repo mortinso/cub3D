@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/20 19:45:35 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:08:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	raycasting(t_cube *cube, t_vector dir)
 	draw_floor(cube);
 	while (cube->raycast.screen_x < SCREEN_W)
 	{
-		draw_angle(cube, angle, 0x0000ff00);
+		// draw_angle(cube, angle, 0x0000ff00);
 		cube->raycast.delta_dist.x = 1e30;
 		cube->raycast.delta_dist.y = 1e30;
 		cube->raycast.map_x = (int)cube->player.pos.x / CELL;
