@@ -6,15 +6,15 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:57:52 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:24:20 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define SCREEN_W 2560
-# define SCREEN_H 1440
+# define SCREEN_W 1920
+# define SCREEN_H 1080
 
 //----------------------------------INCLUDES------------------------------------
 # include <stdio.h>
