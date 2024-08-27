@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/27 17:11:09 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:10:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Calculates the distance to the nearest line, both horizontally and vertically
 void	step_side_dist(t_vector pos, t_vector dir, t_raycast *cast)
 {
-	if (dir.x == 0)
+	if (dir.x != 0)
 		cast->delta_dist.x = fabs(1 / dir.x);
 	if (dir.y != 0)
 		cast->delta_dist.y = fabs(1 / dir.y);
@@ -45,10 +45,7 @@ void	step_side_dist(t_vector pos, t_vector dir, t_raycast *cast)
 // Sets cast->wall_dist to the shortest one
 void	wall_distance(t_cube *cube, t_vector pos, t_vector dir, t_raycast *cast)
 {
-	int	hit;
-
-	hit = 0;
-	while (hit == 0)
+	while (1)
 	{
 		if (cast->line_dist.x < cast->line_dist.y)
 		{
@@ -63,7 +60,7 @@ void	wall_distance(t_cube *cube, t_vector pos, t_vector dir, t_raycast *cast)
 			cast->orientation = 1;
 		}
 		if (cube->map.map[cast->map_y][cast->map_x] == '1')
-			hit = 1;
+			break ;
 	}
 	if (cast->orientation == 0)
 		cast->wall_dist = fabs((cast->map_x - pos.x + (1 - cast->step_x) / 2) / \
