@@ -4,3 +4,4 @@ minilibx-linux/
 *.txt
 cub3D
 libft/libft.a
+*.log
