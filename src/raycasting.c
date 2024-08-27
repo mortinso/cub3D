@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/27 17:08:52 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:11:09 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	wall_distance(t_cube *cube, t_vector pos, t_vector dir, t_raycast *cast)
 			hit = 1;
 	}
 	if (cast->orientation == 0)
-		cast->wall_dist = (cast->map_x - pos.x + (1 - cast->step_x) / 2) / \
-			dir.x;
+		cast->wall_dist = fabs((cast->map_x - pos.x + (1 - cast->step_x) / 2) / \
+			dir.x);
 	else
-		cast->wall_dist = (cast->map_y - pos.y + (1 - cast->step_y) / 2) / \
-			dir.y;
+		cast->wall_dist = fabs((cast->map_y - pos.y + (1 - cast->step_y) / 2) / \
+			dir.y);
 }
 
 // Draws the walls
@@ -82,7 +82,7 @@ void	draw_wall(t_cube *cube, t_raycast *cast)
 	int		x;
 	int		y;
 
-	line_height = -(300 * SCREEN_H / cast->wall_dist);
+	line_height = (500 * SCREEN_H / cast->wall_dist);
 	draw_start = SCREEN_H / 2 - line_height / 2;
 	if (draw_start < 0)
 		draw_start = 0;
@@ -90,14 +90,14 @@ void	draw_wall(t_cube *cube, t_raycast *cast)
 	if (draw_end >= SCREEN_H)
 		draw_end = SCREEN_H - 1;
 	y = 0;
-	// printf ("%i: draw_start = %f    draw_end = %f", cube->raycast.screen_x / (SCREEN_W / (FOV - 1)), draw_start, draw_end);
-	// printf ("    wall_dist = %f    line_height = %d\n", cast->wall_dist, line_height);
 	while (y < draw_end - draw_start)
 	{
 		x = 0;
-		while (x < (SCREEN_W / FOV) - 1)
+		while (x < (SCREEN_W / FOV))
 		{
-			my_mlx_pixel_put(&cube->game, cast->screen_x + x, draw_start + y, 0x00ff0000);
+			if (cast->screen_x + x < SCREEN_W)
+				my_mlx_pixel_put(&cube->game, cast->screen_x + x, draw_start + \
+					y, 0x00ff0000);
 			x++;
 		}
 		y++;
