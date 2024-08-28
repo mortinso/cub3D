@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:03:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:36:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	destruct(t_cube *cube)
 		free_array(cube->map.map);
 	purge_textures(cube);
 	mlx_destroy_image(cube->mlx, cube->screen.img);
-	mlx_clear_window(cube->mlx, cube->window);
-	mlx_destroy_window(cube->mlx, cube->window);
+	mlx_clear_window(cube->mlx, cube->minimap);
+	mlx_destroy_window(cube->mlx, cube->minimap);
 	mlx_destroy_display(cube->mlx);
 	free(cube->mlx);
 	exit (0);

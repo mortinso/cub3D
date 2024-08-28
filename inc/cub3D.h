@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:43:21 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:06:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 //----------------------------------INCLUDES------------------------------------
 # include <stdio.h>
-// # include "../minilibx-linux/mlx.h" // For 42 pcs
-# include <mlx.h> // for my pc
+# include "../minilibx-linux/mlx.h" // For 42 pcs
+// # include <mlx.h> // for my pc
 # include "../libft/inc/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
@@ -28,6 +28,7 @@
 # define PI 3.1415926535
 # define RAD_DEGREE 0.0174533
 # define FOV 90
+
 
 // v-------- 2Dview -------v
 # define CELL 64 //2D
@@ -87,7 +88,7 @@ typedef struct s_map
 typedef struct s_cube
 {
 	void		*mlx;
-	void		*window;
+	void		*minimap;
 	t_map		map;
 	t_textures	textures;
 	t_img		screen;

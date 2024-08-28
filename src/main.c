@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/14 19:47:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:35:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 // Function that draws to the window
 int	render_frame(t_cube *cube)
 {
-	mlx_put_image_to_window(cube->mlx, cube->window, cube->screen.img, 0, 0);
+	mlx_put_image_to_window(cube->mlx, cube->minimap, cube->screen.img, 0, 0);
 	draw_square(cube, P_SIZE, cube->player.pos, P_COLOR);
 	draw_fov(cube);
 	return (0);
@@ -46,15 +46,15 @@ int	main(int argc, char **argv)
 		exit (1);
 	}
 	init(&cube, argv[1]);
-	cube.window = mlx_new_window(cube.mlx, SCREEN_W, SCREEN_H, "cub3D");
-	if (!cube.window)
+	cube.minimap = mlx_new_window(cube.mlx, 960, 540, "cub3D");
+	if (!cube.minimap)
 	{
 		free(cube.mlx);
 		ft_printf("Window failed\n");
 		exit (1);
 	}
-	mlx_hook(cube.window, 2, 1L << 0, keypress, &cube);
-	mlx_hook(cube.window, 17, 0L, destruct, &cube);
+	mlx_hook(cube.minimap, 2, 1L << 0, keypress, &cube);
+	mlx_hook(cube.minimap, 17, 0L, destruct, &cube);
 	mlx_loop_hook(cube.mlx, render_frame, &cube);
 	mlx_loop(cube.mlx);
 }

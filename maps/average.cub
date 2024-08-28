@@ -1,0 +1,15 @@
+NO ./textures/cobblestone_64.xpm
+SO ./textures/dirt_64.xpm
+WE ./textures/grass_side_64.xpm
+EA ./textures/grass_top_64.xpm
+
+F 121, 196, 242
+C 173, 104, 161
+
+111111111111111
+100000000000001
+10N000000000001
+100000000110001
+100000000110001
+100000000000001
+111111111111111

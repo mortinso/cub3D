@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:41:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:08:12 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color)
 	{
 		temp_x = vect.x - (side / 2);
 		while (temp_x < (vect.x + (side / 2)))
-			mlx_pixel_put(cube->mlx, cube->window, temp_x++, temp_y, color);
+			mlx_pixel_put(cube->mlx, cube->minimap, temp_x++, temp_y, color);
 		temp_y++;
 	}
 }
