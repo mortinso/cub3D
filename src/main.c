@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/27 16:31:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:18:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	render_frame(t_cube *cube)
 {
 	/* mlx_put_image_to_window(cube->mlx, cube->window_2, cube->minimap.img, 0, 0);
 	draw_square(cube, P_SIZE, cube->player.pos, P_COLOR); */
-	// raycasting(cube, cube->player.dir);
 	mlx_put_image_to_window(cube->mlx, cube->game_window, cube->game.img, 0, 0);
 	//draw_fov(cube);
 	return (0);

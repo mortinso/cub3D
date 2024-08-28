@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/28 19:09:32 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:22:34 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,23 @@ void	step_side_dist(t_vector pos, t_vector dir, t_raycast *cast)
 		cast->delta_dist.x = fabs(1 / dir.x);
 	if (dir.y != 0)
 		cast->delta_dist.y = fabs(1 / dir.y);
+	cast->step_x = 1;
+	cast->line_dist.x = fabs((cast->map_x + 1.0 - (pos.x / CELL)) * \
+		cast->delta_dist.x);
 	if (dir.x < 0)
 	{
 		cast->step_x = -1;
-		cast->line_dist.x = fabs(((pos.x / CELL) - cast->map_x) * cast->delta_dist.x);
+		cast->line_dist.x = fabs(((pos.x / CELL) - cast->map_x) * \
+			cast->delta_dist.x);
 	}
-	else
-	{
-		cast->step_x = 1;
-		cast->line_dist.x = fabs((cast->map_x + 1.0 - (pos.x / CELL)) * cast->delta_dist.x);
-	}
+	cast->step_y = 1;
+	cast->line_dist.y = fabs((cast->map_y + 1.0 - (pos.y / CELL)) * \
+		cast->delta_dist.y);
 	if (dir.y < 0)
 	{
 		cast->step_y = -1;
-		cast->line_dist.y = fabs(((pos.y / CELL) - cast->map_y) * cast->delta_dist.y);
-	}
-	else
-	{
-		cast->step_y = 1;
-		cast->line_dist.y = fabs((cast->map_y + 1.0 - (pos.y / CELL)) * cast->delta_dist.y);
+		cast->line_dist.y = fabs(((pos.y / CELL) - cast->map_y) * \
+			cast->delta_dist.y);
 	}
 }
 
@@ -90,7 +88,6 @@ void	raycasting(t_cube *cube, t_vector dir)
 	draw_floor(cube);
 	while (cube->raycast.screen_x < SCREEN_W)
 	{
-		// draw_angle(cube, angle, 0x0000ff00);
 		cube->raycast.delta_dist.x = 1e30;
 		cube->raycast.delta_dist.y = 1e30;
 		cube->raycast.map_x = (int)cube->player.pos.x / CELL;
