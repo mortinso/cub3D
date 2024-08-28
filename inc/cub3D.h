@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/27 17:54:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:57:32 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 # define PI 3.1415926535
 # define RAD_DEGREE 0.0174533
-# define FOV 80
-# define CELL 64 //2D
+# define FOV 90
+# define CELL 64
 
 // v-------- 2Dview -------v
 # define P_SIZE 15 //2D

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/28 18:35:01 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:55:13 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	wall_distance(t_cube *cube, t_raycast *cast)
 			break ;
 	}
 	if (cast->orientation == 0)
-		cast->wall_dist = fabs(cast->line_dist.x - cast->delta_dist.x);
+		cast->wall_dist = cast->line_dist.x - cast->delta_dist.x;
 	else
-		cast->wall_dist = fabs(cast->line_dist.y - cast->delta_dist.y);
+		cast->wall_dist = cast->line_dist.y - cast->delta_dist.y;
 }
 
 // Draws the walls
