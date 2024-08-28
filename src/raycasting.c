@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/27 20:39:09 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:35:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,23 @@ void	step_side_dist(t_vector pos, t_vector dir, t_raycast *cast)
 	if (dir.x < 0)
 	{
 		cast->step_x = -1;
-		cast->line_dist.x = (pos.x - cast->map_x) * cast->delta_dist.x;
+		cast->line_dist.x = fabs(((pos.x / CELL) - cast->map_x) * cast->delta_dist.x);
 	}
 	else
 	{
 		cast->step_x = 1;
-		cast->line_dist.x = (cast->map_x + 1.0 - pos.x) * cast->delta_dist.x;
+		cast->line_dist.x = fabs((cast->map_x + 1.0 - (pos.x / CELL)) * cast->delta_dist.x);
 	}
 	if (dir.y < 0)
 	{
 		cast->step_y = -1;
-		cast->line_dist.y = (pos.y - cast->map_y) * cast->delta_dist.y;
+		cast->line_dist.y = fabs(((pos.y / CELL) - cast->map_y) * cast->delta_dist.y);
 	}
 	else
 	{
 		cast->step_y = 1;
-		cast->line_dist.y = (cast->map_y + 1.0 - pos.y) * cast->delta_dist.y;
+		cast->line_dist.y = fabs((cast->map_y + 1.0 - (pos.y / CELL)) * cast->delta_dist.y);
 	}
-	/* printf ("%i:", cast->screen_x / (SCREEN_W / (FOV - 1)));
-	printf (" pos = [%i, %i]", (int)pos.x / CELL, (int)pos.y / CELL);
-	printf ("  dir = [%f , %f]", dir.x, dir.y);
-	printf ("  l_dist = [%f , %f]", cast->line_dist.x , cast->line_dist.y);
-	printf ("  d_dist = [%f , %f]", cast->delta_dist.x, cast->delta_dist.y); */
 }
 
 // Calculates the distance to the nearest horizontal/vertical lines using DDA
@@ -52,7 +47,7 @@ void	wall_distance(t_cube *cube, t_raycast *cast)
 {
 	while (1)
 	{
-		if (fabs(cast->line_dist.x) < fabs(cast->line_dist.y))
+		if (cast->line_dist.x < cast->line_dist.y)
 		{
 			cast->line_dist.x += cast->delta_dist.x;
 			cast->map_x += cast->step_x;
@@ -82,15 +77,13 @@ void	draw_wall(t_cube *cube, t_raycast *cast)
 	int		x;
 	int		y;
 
-	line_height = (int)(100 * SCREEN_H / cast->wall_dist);
+	line_height = (int)(SCREEN_H / cast->wall_dist);
 	draw_start = SCREEN_H / 2 - line_height / 2;
 	if (draw_start < 0)
 		draw_start = 0;
 	draw_end = SCREEN_H / 2 + line_height / 2;
 	if (draw_end >= SCREEN_H)
 		draw_end = SCREEN_H;
-	/* printf ("  d_start = %f  d_end = %f", draw_start, draw_end);
-	printf ("  w_dist = %f  l_height = %d\n", cast->wall_dist, line_height); */
 	y = 0;
 	while (y < draw_end - draw_start)
 	{
