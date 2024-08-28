@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/28 18:55:13 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:09:32 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 // Calculates the distance to the nearest line, both horizontally and vertically
 void	step_side_dist(t_vector pos, t_vector dir, t_raycast *cast)
@@ -68,37 +68,6 @@ void	wall_distance(t_cube *cube, t_raycast *cast)
 		cast->wall_dist = cast->line_dist.y - cast->delta_dist.y;
 }
 
-// Draws the walls
-void	draw_wall(t_cube *cube, t_raycast *cast)
-{
-	int		line_height;
-	double	draw_start;
-	double	draw_end;
-	int		x;
-	int		y;
-
-	line_height = (int)(SCREEN_H / cast->wall_dist);
-	draw_start = SCREEN_H / 2 - line_height / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	draw_end = SCREEN_H / 2 + line_height / 2;
-	if (draw_end >= SCREEN_H)
-		draw_end = SCREEN_H;
-	y = 0;
-	while (y < draw_end - draw_start)
-	{
-		x = 0;
-		while (x < (SCREEN_W / FOV))
-		{
-			if (cast->screen_x + x < SCREEN_W)
-				my_mlx_pixel_put(&cube->game, cast->screen_x + x, draw_start + \
-					y, 0x00ff0000);
-			x++;
-		}
-		y++;
-	}
-}
-
 // Sets the ray to half the FOV behind, so minus 45º if FOV is 90º
 t_vector	set_ray(t_vector dir)
 {
@@ -109,28 +78,6 @@ t_vector	set_ray(t_vector dir)
 	new.y = dir.x * sin(-(FOV / 2 * RAD_DEGREE)) + dir.y * cos(-(FOV / 2 * \
 		RAD_DEGREE));
 	return (new);
-}
-
-// Draws the ceiling and the floor
-void	draw_floor(t_cube *cube)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < SCREEN_H)
-	{
-		x = 0;
-		while (x < SCREEN_W)
-		{
-			if (y < SCREEN_H / 2)
-				my_mlx_pixel_put(&cube->game, x, y, cube->textures.c_ceil);
-			else
-				my_mlx_pixel_put(&cube->game, x, y, cube->textures.c_floor);
-			x++;
-		}
-		y++;
-	}
 }
 
 void	raycasting(t_cube *cube, t_vector dir)

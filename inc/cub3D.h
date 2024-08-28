@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/28 18:57:32 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:12:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,6 @@ void	init(t_cube *cube, char *map_fd);
 // main.c
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
-// raycasting.c
-void	raycasting(t_cube *cube, t_vector dir);
-
 // utils.c
 size_t	array_size(char **array);
 void	free_array(char **array);
@@ -156,5 +153,13 @@ void	map_error(t_cube *cube, int fd, char *error_msg);
 int		is_texture_identifier(const char *line);
 void	purge_textures(t_cube *cube);
 void	set_texture(t_cube *cube, int fd, char *line);
+
+// +++++++++++++++ raycasting/[.....] +++++++++++++++++++++++++++++++++++++++++
+// drawing.c
+void	draw_wall(t_cube *cube, t_raycast *cast);
+void	draw_floor(t_cube *cube);
+
+// raycasting.c
+void	raycasting(t_cube *cube, t_vector dir);
 
 #endif
