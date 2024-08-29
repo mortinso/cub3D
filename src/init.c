@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/27 16:25:18 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:46:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,8 @@ void	set_angle(t_cube *cube, char direction)
 		cube->player.dir.x = -1;
 		cube->player.dir.y = 0;
 	}
-}
-
-// Draws the minimap
-void	draw_frame(t_cube *cube)
-{
-	int	x;
-	int	y;
-
-	cube->minimap.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
-	cube->minimap.addr = mlx_get_data_addr(cube->minimap.img, \
-		&cube->minimap.bpp, &cube->minimap.length, &cube->minimap.endian);
-	y = 0;
-	while (cube->map.map[y])
-	{
-		x = 0;
-		while (cube->map.map[y][x])
-		{
-			if (cube->map.map[y][x] == '1')
-				put_texture(cube, &cube->textures.north, x * CELL, y * CELL);
-			if (ft_strchr("nsewO", cube->map.map[y][x]))
-				draw_cell(cube, x * CELL, y * CELL, cube->textures.c_floor);
-			x++;
-		}
-		y++;
-	}
+	cube->player.side.x = -cube->player.dir.y;
+	cube->player.side.y = -cube->player.dir.x;
 }
 
 // Calls get_map, then init the player variables

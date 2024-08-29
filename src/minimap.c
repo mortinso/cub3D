@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 18:00:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:48:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,32 @@ void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color)
 	{
 		temp_x = vect.x - (side / 2);
 		while (temp_x < (vect.x + (side / 2)))
-			my_mlx_pixel_put(&cube->minimap, temp_x++, temp_y, color);
+			mlx_pixel_put(cube->mlx, cube->window_2, temp_x++, temp_y, color);
 		temp_y++;
+	}
+}
+
+// Draws the minimap
+void	draw_frame(t_cube *cube)
+{
+	int	x;
+	int	y;
+
+	cube->minimap.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
+	cube->minimap.addr = mlx_get_data_addr(cube->minimap.img, \
+		&cube->minimap.bpp, &cube->minimap.length, &cube->minimap.endian);
+	y = 0;
+	while (cube->map.map[y])
+	{
+		x = 0;
+		while (cube->map.map[y][x])
+		{
+			if (cube->map.map[y][x] == '1')
+				put_texture(cube, &cube->textures.north, x * CELL, y * CELL);
+			if (ft_strchr("nsewO", cube->map.map[y][x]))
+				draw_cell(cube, x * CELL, y * CELL, cube->textures.c_floor);
+			x++;
+		}
+		y++;
 	}
 }
