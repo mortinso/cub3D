@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/02 20:20:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/02 22:36:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	wall_distance(t_cube *cube, t_raycast *cast)
 
 void	raycasting(t_cube *cube, t_raycast *cast, t_vector dir)
 {
-	int			x;
+	int	x;
 
 	x = 0;
 	draw_floor(cube);
