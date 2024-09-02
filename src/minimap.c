@@ -6,13 +6,13 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:06 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/29 18:48:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:34:38 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
-// Copies an image, pixel by pixel, to `cube->screen`
+// Copies an image, pixel by pixel, to `cube->minimap`
 void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y)
 {
 	char	*color;
