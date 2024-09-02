@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/30 17:27:44 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:53:10 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	set_angle(t_cube *cube, char direction)
 		cube->player.dir.x = -1;
 		cube->player.dir.y = 0;
 	}
+	cube->player.plane.x = -(cube->player.dir.y * 0.66);
+	cube->player.plane.y = cube->player.dir.x * 0.66;
 }
 
 // Calls get_map, then init the player variables

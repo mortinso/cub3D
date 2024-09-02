@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/28 19:12:29 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:21:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 
 # define PI 3.1415926535
 # define RAD_DEGREE 0.0174533
-# define FOV 90
 # define CELL 64
 
 // v-------- 2Dview -------v
+# define FOV 90
 # define P_SIZE 15 //2D
 # define P_COLOR 0x00ff0000
 # define A_COLOR 0x00ffff00
@@ -76,19 +76,21 @@ typedef struct s_raycast
 {
 	t_vector	line_dist;
 	t_vector	delta_dist;
+	t_vector	ray_dir;
 	int			step_x;
 	int			step_y;
 	int			map_x;
 	int			map_y;
 	int			orientation;
 	double		wall_dist;
-	int			screen_x;
+	double		win_x;
 }	t_raycast;
 
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
+	t_vector	plane;
 }	t_player;
 
 typedef struct s_map
@@ -156,10 +158,10 @@ void	set_texture(t_cube *cube, int fd, char *line);
 
 // +++++++++++++++ raycasting/[.....] +++++++++++++++++++++++++++++++++++++++++
 // drawing.c
-void	draw_wall(t_cube *cube, t_raycast *cast);
+void	draw_wall(t_cube *cube, t_raycast *cast, int x);
 void	draw_floor(t_cube *cube);
 
 // raycasting.c
-void	raycasting(t_cube *cube, t_vector dir);
+void	raycasting(t_cube *cube, t_raycast *cast, t_vector dir);
 
 #endif

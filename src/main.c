@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/28 19:18:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:22:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 		ft_printf("Window failed\n");
 		exit (1);
 	}
-	raycasting(&cube, cube.player.dir);
+	raycasting(&cube, &cube.raycast, cube.player.dir);
 	/* cube.window_2 = mlx_new_window(cube.mlx, SCREEN_W, SCREEN_H, "minimap");
 	if (!cube.window_2)
 	{
