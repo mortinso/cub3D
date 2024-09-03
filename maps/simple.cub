@@ -1,7 +1,7 @@
-NO ./textures/cobblestone_64.xpm
-SO ./textures/dirt_64.xpm
-WE ./textures/grass_side_64.xpm
-EA ./textures/grass_top_64.xpm
+NO ./textures/cobblestone.xpm
+SO ./textures/dirt.xpm
+WE ./textures/grass_side.xpm
+EA ./textures/grass_top.xpm
 
 F 255, 255, 255
 C 50, 50, 50
