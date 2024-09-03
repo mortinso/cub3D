@@ -3,8 +3,8 @@ SO ./textures/dirt_64.xpm
 WE ./textures/grass_side_64.xpm
 EA ./textures/grass_top_64.xpm
 
-F 121, 196, 242
-C 173, 104, 161
+F 255, 255, 255
+C 50, 50, 50
 
 11111
 10001
