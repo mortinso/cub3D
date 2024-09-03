@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:37:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/02 22:36:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:59:06 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,14 @@ void	raycasting(t_cube *cube, t_raycast *cast, t_vector dir)
 		cast->delta_dist.y = fabs(1 / cast->ray_dir.y);
 		step_side_dist(cube->player.pos, cast->ray_dir, cast);
 		wall_distance(cube, cast);
-		draw_wall(cube, cast, x);
+		if (cast->orientation == 0)
+			cast->wall_x = (cube->player.pos.y / CELL) + cast->wall_dist * \
+				cast->ray_dir.y;
+		else
+			cast->wall_x = (cube->player.pos.x / CELL) + cast->wall_dist * \
+				cast->ray_dir.x;
+		cast->wall_x -= floor((cast->wall_x));
+		draw_wall(cube, cast, &cast->draw, x);
 		x++;
 	}
 }

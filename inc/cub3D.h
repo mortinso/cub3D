@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/03 14:38:55 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:53:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,24 @@ typedef struct s_textures
 	int		c_floor;
 }	t_textures;
 
+typedef struct s_draw
+{
+	t_img	texture;
+	double	start;
+	double	end;
+	int		line_height;
+	int		x;
+	int		y;
+	double	pos;
+	double	step;
+}	t_draw;
+
 typedef struct s_raycast
 {
 	t_vector	line_dist;
 	t_vector	delta_dist;
 	t_vector	ray_dir;
+	t_draw		draw;
 	int			step_x;
 	int			step_y;
 	int			map_x;
@@ -84,6 +97,7 @@ typedef struct s_raycast
 	int			orientation;
 	double		wall_dist;
 	double		win_x;
+	double		wall_x;
 }	t_raycast;
 
 typedef struct s_player
@@ -158,7 +172,7 @@ void	set_texture(t_cube *cube, int fd, char *line);
 
 // +++++++++++++++ raycasting/[.....] +++++++++++++++++++++++++++++++++++++++++
 // drawing.c
-void	draw_wall(t_cube *cube, t_raycast *cast, int x);
+void	draw_wall(t_cube *cube, t_raycast *cast, t_draw *draw, int x);
 void	draw_floor(t_cube *cube);
 
 // raycasting.c
