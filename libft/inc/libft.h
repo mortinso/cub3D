@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:30:24 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:33:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:02:06 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char			*ft_strtrim(const char *s, const char *set);
 char			*ft_substr(char const *str, unsigned int c, size_t n);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+char			*ft_strstr(const char *str, const char *cmp);
 
 // VV------------------------------ LIBFT BONUS ------------------------------VV
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:31:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:03:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ unsigned int	get_color(t_cube *cube, int fd, char *line)
 	char			**rgb;
 	int				i;
 
+	if (ft_strstr(line, ",,"))
+	{
+		free(line);
+		map_error(cube, fd, "Multiple commas in color definition");
+	}
 	rgb = ft_split(line + 2, ',');
 	if (!rgb)
 	{
