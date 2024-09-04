@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/04 16:01:42 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:08:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Wrong number of arguments.\nUsage: ./cub3D <path_to_map>\n");
+		ft_printf("Error\nWrong number of arguments.\nUsage: ./cub3D <map_file>\n");
 		return (1);
 	}
 	cube.mlx = mlx_init();
 	if (!cube.mlx)
 	{
-		ft_printf("MLX failed\n");
+		ft_printf("Error\nMLX failed\n");
 		exit (1);
 	}
 	init(&cube, argv[1]);
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 	if (!cube.game_window)
 	{
 		free(cube.mlx);
-		ft_printf("Window failed\n");
+		ft_printf("Error\nWindow failed\n");
 		exit (1);
 	}
 	raycasting(&cube, &cube.raycast, cube.player.dir);
