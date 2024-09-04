@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/02 16:53:10 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:45:11 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	init(t_cube *cube, char *map_fd)
 		{
 			if (ft_strchr("nsew", cube->map.map[y][x]))
 			{
-				cube->player.pos.x = x * CELL;
-				cube->player.pos.y = y * CELL;
+				cube->player.pos.x = x * CELL + CELL / 2;
+				cube->player.pos.y = y * CELL + CELL / 2;
 				set_angle(cube, cube->map.map[y][x]);
 				// draw_frame(cube);
 				cube->game.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
