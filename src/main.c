@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/04 16:17:07 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:58:50 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,23 @@ int	render_frame(t_cube *cube)
 	return (0);
 }
 
+// Helper function to set up event hooks
+void	setup_hooks(t_cube *cube)
+{
+	mlx_hook(cube->game_window, 2, 1L << 0, keypress, cube);
+	mlx_hook(cube->game_window, 17, 0L, destruct, cube);
+	mlx_loop_hook(cube->mlx, render_frame, cube);
+	mlx_loop(cube->mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_cube	cube;
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("Error\nWrong number of arguments.\nUsage: ./cub3D <map_file>\n", 2);
+		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
+		ft_putstr_fd("Usage: ./cub3D <map.cub>\n", 2);
 		return (1);
 	}
 	cube.mlx = mlx_init();
@@ -52,10 +62,7 @@ int	main(int argc, char **argv)
 		exit (1);
 	}
 	raycasting(&cube, &cube.raycast, cube.player.dir);
-	mlx_hook(cube.game_window, 2, 1L << 0, keypress, &cube);
-	mlx_hook(cube.game_window, 17, 0L, destruct, &cube);
-	mlx_loop_hook(cube.mlx, render_frame, &cube);
-	mlx_loop(cube.mlx);
+	setup_hooks(&cube);
 }
 //Handle exits properly
 //Write error messages to STDERR
