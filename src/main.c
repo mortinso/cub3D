@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:27:16 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/04 16:08:01 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:17:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Error\nWrong number of arguments.\nUsage: ./cub3D <map_file>\n");
+		ft_putstr_fd("Error\nWrong number of arguments.\nUsage: ./cub3D <map_file>\n", 2);
 		return (1);
 	}
 	cube.mlx = mlx_init();
 	if (!cube.mlx)
 	{
-		ft_printf("Error\nMLX failed\n");
+		ft_putstr_fd("Error\nMLX failed\n", 2);
 		exit (1);
 	}
 	init(&cube, argv[1]);
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 	if (!cube.game_window)
 	{
 		free(cube.mlx);
-		ft_printf("Error\nWindow failed\n");
+		ft_putstr_fd("Error\nWindow failed\n", 2);
 		exit (1);
 	}
 	raycasting(&cube, &cube.raycast, cube.player.dir);

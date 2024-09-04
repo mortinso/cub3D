@@ -1,54 +1,69 @@
 NAME = cub3D
-
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I$(INC_DIR)
 
-SRC_DIR = src
 INC_DIR = inc
-OBJ_DIR = .obj
-LFT_DIR = libft
+SRC_DIR = src
+OBJ_DIR = obj
 
-MAP_SRC = map.c colors.c textures.c content.c content_check.c
-RAY_SRC = drawing.c raycasting.c
-SRC_FILES = main.c events.c utils.c init.c $(addprefix map/, $(MAP_SRC)) $(addprefix raycasting/, $(RAY_SRC))
-INC_FILES = cub3D.h
+SRC := $(addprefix $(SRC_DIR)/, \
+    main.c \
+    events.c \
+    utils.c \
+    init.c \
+    $(addprefix map/, \
+        map.c \
+        colors.c \
+        textures.c \
+        content.c \
+        content_check.c \
+    ) \
+    $(addprefix raycasting/, \
+        drawing.c \
+        raycasting.c \
+    ) \
+)
 
-LIB = -L minilibx-linux -lmlx -lXext -lX11 -lm
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
-SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
-HDRS = $(addprefix $(INC_DIR)/, $(INC_FILES))
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
-LIBFT = $(LFT_DIR)/libft.a
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+MLX_DIR = minilibx-linux
+MLX = $(MLX_DIR)/libmlx.a
+MLXFLAGS = -lXext -lX11 -lm
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(HDRS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIB) -o $(NAME)
-	@echo "Compiled!"
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft $(MLXFLAGS)
+	@echo "cub3D compiled"
 
-$(LIBFT):
-	@make --no-print-directory -C $(LFT_DIR)
-	@echo $(GREEN)"Compiled Libft!"$(NC)
-
-$(OBJ_DIR)/%.o: %.c $(HDRS)
-	@mkdir -p $(OBJ_DIR)/$(dir $<)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(LIBFT):
+	@$(MAKE) -s -C $(LIBFT_DIR)
+	@echo "libft compiled"
+
+$(MLX):
+	@$(MAKE) -s -C $(MLX_DIR) > /dev/null 2>&1
+	@echo "mlx compiled"
+
 clean:
-	@make clean --no-print-directory -C $(LFT_DIR)
-	@rm -rf $(OBJS) $(OBJ_DIR)
-	@echo "Object files removed"
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) -s clean -C $(LIBFT_DIR)
+	@$(MAKE) -s clean -C $(MLX_DIR) > /dev/null 2>&1
+	@echo "cub3D removed"
 
 fclean: clean
-	@rm -rf $(LIBFT)
-	@echo "Libft removed"
-	@rm -rf $(NAME)
-	@echo "Executable removed"
+	@rm -f $(NAME)
+	@$(MAKE) -s fclean -C $(LIBFT_DIR)
+	@echo "cub3D removed"
 
 re: fclean all
 
-# --track-fds=yes
-val: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/minimalist.cub
+val: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/minimalist.cub
 
-.PHONY: all clean fclean re val
+.PHONY: all clean fclean re

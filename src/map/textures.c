@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:53:47 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:31:41 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:18:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ char	*texture_path(const char *line)
 
 	path = ft_strtrim(line + 3, " \n");
 	if (!path)
-		ft_printf("Error\n Malloc failed\n");
+		ft_putstr_fd("Error\n Malloc failed\n", 2);
 	else if (ft_strlen(path) < 5 || !ft_strnstr(path + (ft_strlen(path) - 4), \
 		".xpm", 5))
 	{
-		ft_printf("Error\n Texture is not type '.xpm'\n");
+		ft_putstr_fd("Error\n Texture is not type '.xpm'\n", 2);
 		free(path);
 		path = NULL;
 	}
@@ -66,7 +66,7 @@ int	init_texture(t_cube *cube, char *line, t_img *img)
 	texture_fd = open(path, O_RDONLY);
 	if (texture_fd < 0)
 	{
-		ft_printf("Error\n Can't open texture file\n");
+		ft_putstr_fd("Error\n Can't open texture file\n", 2);
 		free(path);
 		return (0);
 	}
@@ -76,7 +76,7 @@ int	init_texture(t_cube *cube, char *line, t_img *img)
 	free(path);
 	if (img->img == NULL)
 	{
-		ft_printf("Error\nFailed to read texture\n");
+		ft_putstr_fd("Error\nFailed to read texture\n", 2);
 		return (0);
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, \
