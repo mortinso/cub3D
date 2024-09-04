@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/02 20:34:11 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:01:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int	destruct(t_cube *cube)
 	if (cube->map.map)
 		free_array(cube->map.map);
 	purge_textures(cube);
-	/* mlx_destroy_image(cube->mlx, cube->minimap.img);
-	mlx_clear_window(cube->mlx, cube->window_2);
-	mlx_destroy_window(cube->mlx, cube->window_2); */
 	mlx_destroy_image(cube->mlx, cube->game.img);
 	mlx_clear_window(cube->mlx, cube->game_window);
 	mlx_destroy_window(cube->mlx, cube->game_window);
