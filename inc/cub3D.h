@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/03 18:53:52 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:55:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@
 # define PI 3.1415926535
 # define RAD_DEGREE 0.0174533
 # define CELL 64
-
-// v-------- 2Dview -------v
-# define FOV 90
-# define P_SIZE 15 //2D
-# define P_COLOR 0x00ff0000
-# define A_COLOR 0x00ffff00
 
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
@@ -117,24 +111,15 @@ typedef struct s_cube
 {
 	void		*mlx;
 	void		*game_window;
-	void		*window_2;
 	t_map		map;
 	t_textures	textures;
 	t_img		game;
-	t_img		minimap;
 	t_raycast	raycast;
 	t_player	player;
 }	t_cube;
 
 //------------------------------------SRCS--------------------------------------
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
-// minimap.c
-void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y);
-void	draw_cell(t_cube *cube, int x, int y, unsigned int color);
-void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color);
-void	draw_angle(t_cube *cube, t_vector delta, unsigned int color);
-void	draw_fov(t_cube *cube);
-
 // events.c
 int		destruct(t_cube *cube);
 int		keypress(int key, t_cube *cube);
@@ -146,7 +131,6 @@ void	init(t_cube *cube, char *map_fd);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 // utils.c
-size_t	array_size(char **array);
 void	free_array(char **array);
 int		is_all_digit(const char *str);
 
