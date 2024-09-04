@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g -I$(INC_DIR)
 
 INC_DIR = inc
 SRC_DIR = src
-OBJ_DIR = obj
+OBJ_DIR = .obj
 
 SRC := $(addprefix $(SRC_DIR)/, \
     main.c \
@@ -28,7 +28,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-MLX_DIR = minilibx-linux
+MLX_DIR = .minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 MLXFLAGS = -lXext -lX11 -lm
 
