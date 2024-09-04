@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 18:14:48 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:31:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:31:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	check_surrounding(t_cube *cube, int x, int y)
 		map_error(cube, -1, "Map isn't surrounded by walls");
 	if (ft_strchr("0NSEW", cube->map.map[y][x]))
 	{
-		if (x == 0 || y == 0)
+		if (x == 0 || y == 0 || !cube->map.map[y + 1])
 			map_error(cube, -1, "Map isn't surrounded by walls");
 		if (cube->map.map[y][x] == '0')
 			cube->map.map[y][x] = 'O';

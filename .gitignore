@@ -1,4 +1,5 @@
 minilibx-linux/
+.minilibx-linux/
 .vscode/
 .obj/
 *.txt

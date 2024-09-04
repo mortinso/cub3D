@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/04 16:02:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:37:11 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 
 //----------------------------------INCLUDES------------------------------------
 # include <stdio.h>
-# include "../minilibx-linux/mlx.h" // For 42 pcs
-// # include <mlx.h> // for my pc
+# include "../.minilibx-linux/mlx.h"
 # include "../libft/inc/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
