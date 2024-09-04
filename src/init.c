@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:03:40 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:41:55 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:01:44 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,8 @@ void	set_angle(t_cube *cube, char direction)
 		cube->player.dir.x = -1;
 		cube->player.dir.y = 0;
 	}
-}
-
-// Draws the minimap
-void	draw_frame(t_cube *cube)
-{
-	int	x;
-	int	y;
-
-	cube->screen.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
-	cube->screen.addr = mlx_get_data_addr(cube->screen.img, &cube->screen.bpp, \
-		&cube->screen.length, &cube->screen.endian);
-	y = 0;
-	while (cube->map.map[y])
-	{
-		x = 0;
-		while (cube->map.map[y][x])
-		{
-			if (cube->map.map[y][x] == '1')
-				put_texture(cube, &cube->textures.north, x * CELL, y * CELL);
-			if (ft_strchr("nsewO", cube->map.map[y][x]))
-				draw_cell(cube, x * CELL, y * CELL, cube->textures.c_floor);
-			x++;
-		}
-		y++;
-	}
+	cube->player.plane.x = -(cube->player.dir.y * 0.66);
+	cube->player.plane.y = cube->player.dir.x * 0.66;
 }
 
 // Calls get_map, then init the player variables
@@ -77,10 +54,12 @@ void	init(t_cube *cube, char *map_fd)
 		{
 			if (ft_strchr("nsew", cube->map.map[y][x]))
 			{
-				cube->player.pos.x = x * CELL;
-				cube->player.pos.y = y * CELL;
+				cube->player.pos.x = x * CELL + CELL / 2;
+				cube->player.pos.y = y * CELL + CELL / 2;
 				set_angle(cube, cube->map.map[y][x]);
-				draw_frame(cube);
+				cube->game.img = mlx_new_image(cube->mlx, SCREEN_W, SCREEN_H);
+				cube->game.addr = mlx_get_data_addr(cube->game.img, \
+					&cube->game.bpp, &cube->game.length, &cube->game.endian);
 				return ;
 			}
 			x++;

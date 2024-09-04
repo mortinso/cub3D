@@ -1,11 +1,11 @@
-NO ./textures/cobblestone_64.xpm
-SO ./textures/dirt_64.xpm
-WE ./textures/grass_side_64.xpm
-EA ./textures/grass_top_64.xpm
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
 
 
-F 121, 196, 242
-C 173, 104, 161
+F 205, 205, 205
+C 50, 50, 50
 
         1111111111111111111111111
         1000000000110000000000001

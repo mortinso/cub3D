@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:33:28 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:31:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:38:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	clean_color(char **rgb)
 		if (!tmp)
 		{
 			free_array(rgb);
-			ft_printf("Error\n Malloc failed\n");
+			ft_putstr_fd("Error\n Malloc failed\n", 2);
 			return (0);
 		}
 		free(rgb[i]);
@@ -35,7 +35,7 @@ int	clean_color(char **rgb)
 		{
 			rgb[i] = tmp;
 			free_array(rgb);
-			ft_printf("Error\n Malloc failed\n");
+			ft_putstr_fd("Error\n Malloc failed\n", 2);
 			return (0);
 		}
 		free (tmp);
@@ -62,7 +62,7 @@ int	check_color(char **rgb)
 	if (i == 3 && !rgb[i])
 		return (1);
 	free_array(rgb);
-	ft_printf("Error\n Wrongly formatted color\n");
+	ft_putstr_fd("Error\n Wrongly formatted color\n", 2);
 	return (0);
 }
 
@@ -109,6 +109,11 @@ void	set_color(t_cube *cube, int fd, char *line)
 	{
 		free(line);
 		map_error(cube, fd, "Multiple definitions of the same color element");
+	}
+	if (ft_strstr(line, ",,"))
+	{
+		free(line);
+		map_error(cube, fd, "Multiple commas in color definition");
 	}
 	*color = get_color(cube, fd, line);
 }

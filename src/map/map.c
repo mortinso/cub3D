@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:52:31 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:31:47 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:39:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 void	map_error(t_cube *cube, int fd, char *error_msg)
 {
 	if (error_msg != NULL)
-		ft_printf("Error\n%s\n", error_msg);
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd(error_msg, 2);
+		ft_putstr_fd("\n", 2);
+	}
 	if (cube->map.map)
 		free_array(cube->map.map);
 	if (fd >= 0)

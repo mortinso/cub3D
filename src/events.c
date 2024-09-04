@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:13:14 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:03:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:01:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	destruct(t_cube *cube)
 	if (cube->map.map)
 		free_array(cube->map.map);
 	purge_textures(cube);
-	mlx_destroy_image(cube->mlx, cube->screen.img);
-	mlx_clear_window(cube->mlx, cube->window);
-	mlx_destroy_window(cube->mlx, cube->window);
+	mlx_destroy_image(cube->mlx, cube->game.img);
+	mlx_clear_window(cube->mlx, cube->game_window);
+	mlx_destroy_window(cube->mlx, cube->game_window);
 	mlx_destroy_display(cube->mlx);
 	free(cube->mlx);
 	exit (0);
@@ -42,6 +42,7 @@ void	move_straight(t_cube *cube, int direction)
 		return ;
 	cube->player.pos.x = tmp.x;
 	cube->player.pos.y = tmp.y;
+	raycasting(cube, &cube->raycast, cube->player.dir);
 }
 
 // Function to move sideways (*5 to move faster)
@@ -49,21 +50,17 @@ void	move_straight(t_cube *cube, int direction)
 // -1 = left
 void	move_sideways(t_cube *cube, int direction)
 {
-	t_vector	tmp_dir;
 	t_vector	tmp_pos;
 
 	if (direction != 1 && direction != -1)
 		return ;
-	tmp_dir.x = cube->player.dir.x * cos(90 * RAD_DEGREE) - cube->player.dir.y \
-		* sin(90 * RAD_DEGREE);
-	tmp_dir.y = cube->player.dir.x * sin(90 * RAD_DEGREE) + cube->player.dir.y \
-		* cos(90 * RAD_DEGREE);
-	tmp_pos.x = cube->player.pos.x + (tmp_dir.x * direction * 5);
-	tmp_pos.y = cube->player.pos.y + (tmp_dir.y * direction * 5);
+	tmp_pos.x = cube->player.pos.x + (cube->player.plane.x * direction * 5);
+	tmp_pos.y = cube->player.pos.y + (cube->player.plane.y * direction * 5);
 	if (cube->map.map[(int)tmp_pos.y / CELL][(int)tmp_pos.x / CELL] == '1')
 		return ;
 	cube->player.pos.x = tmp_pos.x;
 	cube->player.pos.y = tmp_pos.y;
+	raycasting(cube, &cube->raycast, cube->player.dir);
 }
 
 // Function to change the players angle (*5 to pan faster)
@@ -74,10 +71,13 @@ void	pan(t_cube *cube, int angle)
 	double	tmp_x;
 
 	tmp_x = cube->player.dir.x;
-	cube->player.dir.x = cube->player.dir.x * cos(angle * (RAD_DEGREE * 5)) - \
-		cube->player.dir.y * sin(angle * (RAD_DEGREE * 5));
-	cube->player.dir.y = tmp_x * sin(angle * (RAD_DEGREE * 5)) + \
-		cube->player.dir.y * cos(angle * (RAD_DEGREE * 5));
+	cube->player.dir.x = cube->player.dir.x * cos(angle * (RAD_DEGREE * 2)) - \
+		cube->player.dir.y * sin(angle * (RAD_DEGREE * 2));
+	cube->player.dir.y = tmp_x * sin(angle * (RAD_DEGREE * 2)) + \
+		cube->player.dir.y * cos(angle * (RAD_DEGREE * 2));
+	cube->player.plane.x = -(cube->player.dir.y * 0.66);
+	cube->player.plane.y = cube->player.dir.x * 0.66;
+	raycasting(cube, &cube->raycast, cube->player.dir);
 }
 
 // Keypress handler

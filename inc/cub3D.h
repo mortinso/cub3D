@@ -6,20 +6,20 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:31:01 by mortins-          #+#    #+#             */
-/*   Updated: 2024/08/22 17:43:21 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:02:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define SCREEN_W 2560
-# define SCREEN_H 1440
+# define SCREEN_W 1920
+# define SCREEN_H 1080
 
 //----------------------------------INCLUDES------------------------------------
 # include <stdio.h>
-// # include "../minilibx-linux/mlx.h" // For 42 pcs
-# include <mlx.h> // for my pc
+# include "../minilibx-linux/mlx.h" // For 42 pcs
+// # include <mlx.h> // for my pc
 # include "../libft/inc/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
@@ -27,13 +27,7 @@
 
 # define PI 3.1415926535
 # define RAD_DEGREE 0.0174533
-# define FOV 90
-
-// v-------- 2Dview -------v
-# define CELL 64 //2D
-# define P_SIZE 15 //2D
-# define P_COLOR 0x00ff0000
-# define A_COLOR 0x00ffff00
+# define CELL 64
 
 //------------------------------------KEYS--------------------------------------
 # define KEY_ESC 65307
@@ -56,6 +50,12 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
 typedef struct s_textures
 {
 	t_img	north;
@@ -66,16 +66,39 @@ typedef struct s_textures
 	int		c_floor;
 }	t_textures;
 
-typedef struct s_vector
+typedef struct s_draw
 {
-	double	x;
-	double	y;
-}	t_vector;
+	t_img	texture;
+	double	start;
+	double	end;
+	int		line_height;
+	int		x;
+	int		y;
+	double	pos;
+	double	step;
+}	t_draw;
+
+typedef struct s_raycast
+{
+	t_vector	line_dist;
+	t_vector	delta_dist;
+	t_vector	ray_dir;
+	t_draw		draw;
+	int			step_x;
+	int			step_y;
+	int			map_x;
+	int			map_y;
+	int			orientation;
+	double		wall_dist;
+	double		win_x;
+	double		wall_x;
+}	t_raycast;
 
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
+	t_vector	plane;
 }	t_player;
 
 typedef struct s_map
@@ -87,21 +110,16 @@ typedef struct s_map
 typedef struct s_cube
 {
 	void		*mlx;
-	void		*window;
+	void		*game_window;
 	t_map		map;
 	t_textures	textures;
-	t_img		screen;
+	t_img		game;
+	t_raycast	raycast;
 	t_player	player;
 }	t_cube;
 
 //------------------------------------SRCS--------------------------------------
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
-// minimap.c
-void	put_texture(t_cube *cube, t_img *texture, int screen_x, int screen_y);
-void	draw_cell(t_cube *cube, int x, int y, unsigned int color);
-void	draw_square(t_cube *cube, int side, t_vector vect, unsigned int color);
-void	draw_fov(t_cube *cube);
-
 // events.c
 int		destruct(t_cube *cube);
 int		keypress(int key, t_cube *cube);
@@ -113,7 +131,6 @@ void	init(t_cube *cube, char *map_fd);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 // utils.c
-size_t	array_size(char **array);
 void	free_array(char **array);
 int		is_all_digit(const char *str);
 
@@ -136,5 +153,13 @@ void	map_error(t_cube *cube, int fd, char *error_msg);
 int		is_texture_identifier(const char *line);
 void	purge_textures(t_cube *cube);
 void	set_texture(t_cube *cube, int fd, char *line);
+
+// +++++++++++++++ raycasting/[.....] +++++++++++++++++++++++++++++++++++++++++
+// drawing.c
+void	draw_wall(t_cube *cube, t_raycast *cast, t_draw *draw, int x);
+void	draw_floor(t_cube *cube);
+
+// raycasting.c
+void	raycasting(t_cube *cube, t_raycast *cast, t_vector dir);
 
 #endif
