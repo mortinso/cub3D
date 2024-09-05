@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:08:45 by mortins-          #+#    #+#             */
-/*   Updated: 2024/09/04 16:01:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:46:13 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_wall(t_cube *cube, t_raycast *cast, t_draw *draw, int x)
 	char	*color;
 	int		win_y;
 
-	draw->line_height = (int)(SCREEN_H / cast->wall_dist);
+	draw->line_height = (int)(1.333 * SCREEN_H / cast->wall_dist);
 	draw->start = SCREEN_H / 2 - draw->line_height / 2;
 	if (draw->start < 0 || draw->line_height < 0)
 		draw->start = 0;
