@@ -12,10 +12,10 @@
 
 #include "../inc/libft.h"
 
-//	Adds the node ’new’ at the beginning of the list 'lst'
+//	Adds the node ’node’ at the beginning of the list 'lst'
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *node)
 {
-	new -> next = *lst;
-	*lst = new;
+	node -> next = *lst;
+	*lst = node;
 }
